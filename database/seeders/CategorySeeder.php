@@ -16,25 +16,19 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('services')->delete();
-
-        $json = file_get_contents(__DIR__ . '/services_data.json');
-        $services = json_decode($json, true);
+        $json = file_get_contents(__DIR__ . '/categories_data.json');
+        $categories = json_decode($json, true);
 
         $now = Carbon::now();
         $id = 1;
 
-        foreach ($services as $service) {
-            $service['id'] = $id;
-            $service['created_at'] = $now;
-            $service['updated_at'] = $now;
+        foreach ($categories as $category) {
+            $category['id'] = $id;
+            $category['created_at'] = $now;
+            $category['updated_at'] = $now;
 
-            // Ensure that the number of placeholders matches the number of values
-            $placeholders = array_fill(0, count($service), '?');
-
-            DB::table('services')->insert($service);
+            DB::table('categories')->insert($category);
             $id++;
         }
-        
     }
 }
