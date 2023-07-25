@@ -1,0 +1,63 @@
+[
+    {
+      "category_name": "Search Engine Optimization",
+      "category_slug": "search-engine-optimization",
+      "category_image": "seo.png",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Social Media Marketing",
+      "category_slug": "social-media-marketing",
+      "category_image": "socialmedia.jpg",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Content Marketing",
+      "category_slug": "content-marketing",
+      "category_image": "content-marketing.jpg",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Email Marketing",
+      "category_slug": "email-marketing",
+      "category_image": "email-marketing.png",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Pay-Per-Click (PPC)",
+      "category_slug": "pay-per-click",
+      "category_image": "ppc.jpg",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Web Design & Development",
+      "category_slug": "web-design-and-development",
+      "category_image": "web-design.jpg",
+      "category_isFeatured": true
+    },
+    {
+      "category_name": "Influencer Marketing",
+      "category_slug": "influencer-marketing",
+      "category_image": "influencer-marketing.jpeg",
+      "category_isFeatured": false
+    },
+    {
+      "category_name": "Analytics & Insights",
+      "category_slug": "analytics-and-insights",
+      "category_image": "analytics.png",
+      "category_isFeatured": false
+    },
+    {
+      "category_name": "Affiliate Marketing",
+      "category_slug": "affiliate-marketing",
+      "category_image": "affiliate-marketing.png",
+      "category_isFeatured": false
+    },
+    {
+      "category_name": "Online Advertising",
+      "category_slug": "online-advertising",
+      "category_image": "online-advertising.jpg",
+      "category_isFeatured": false
+    }
+  ]
+  

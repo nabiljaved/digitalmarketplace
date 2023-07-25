@@ -1,0 +1,246 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Controllers\Controller;
+use App\Models\Service;
+use App\Models\Backend\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+
+
+class ServiceController extends Controller
+{
+    public function index()
+    {
+        $services = Service::all();
+        return response()->json($services);
+    }
+
+    public function save(Request $request)
+    {
+        $requestData = $request->all();
+        return response()->json(['data'=>$requestData]);
+
+
+        $selectedImages = stripslashes($request->input('selected_images'));
+        $selectedImages = json_decode($selectedImages);
+
+
+        // $additionalServiceTitles = $request->input('additional_service_title');
+
+       return response()->json(['data'=>$requestData, 'images'=>$selectedImages]);
+    }
+
+    public function store(Request $request)
+    {
+
+        // $requestData = $request->all();
+        // return response()->json(['data'=>$requestData]);
+
+        $validator = Validator::make($request->all(), [
+            'service_title' => 'required|string',
+            'service_category' => 'required|string',
+            'service_price' => 'required|numeric',
+            'service_details' => 'required|string',
+            'service_url' => 'required|string',
+            'selected_images' => 'required|array',
+            'service_status' => 'required|in:pending,not active,active',
+            'service_slug'  => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $selectedImages = [];
+        if ($request->file('images')){
+            foreach($request->file('images') as $key => $file)
+            {
+                $fileName = time().rand(1,99).'.'.$file->extension();  
+                $file->move(public_path('uploads/services'), $fileName);
+                $selectedImages[] = $fileName;
+            }
+        }
+
+        
+        try {
+
+            $service = Service::create([
+                'service_title' => $request->service_title,
+                'service_category' => floatval($request->input('service_category')),
+                'service_price' => floatval($request->input('service_price')),
+                'service_detail' =>$request->service_details,
+                'service_url' => $request->input('service_url'),
+                'selected_images' => json_encode($selectedImages), 
+                'service_status' => $request->input('service_status'),
+                'service_slug' => $request->service_slug,
+          ]);
+
+          return redirect()->route('services')->with('success','services added successfully');
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e ]);
+        }
+  
+         
+
+
+
+
+
+        // Create a new service record
+        // $service = Service::create([
+        //     'service_title' => $request->service_title,
+        //     'service_category' => $request->input('service_category'),
+        //     'service_price' => floatval($request->input('service_price')),
+        //     'service_details' => $request->input('service_details'),
+        //     'service_url' => $request->input('service_url'),
+        //     'selected_images' => $selectedImages,
+        //     'service_status' => $request->input('service_status'),
+
+        // ]);
+
+        //     return response()->json(['data'=>$requestData, 'images'=>$selectedImages]);
+
+        //     return redirect()->route('add-services')
+        // ->with('success','services added successfully');
+
+
+
+    }
+
+  
+
+    public function destroy($slug)
+
+    {
+
+
+       
+
+        try {
+            
+        $service = Service::where('service_slug', $slug)->firstOrFail();
+        $selectedImages = json_decode($service->selected_images);
+        $strippedImages = array_map('strip_tags', $selectedImages);
+
+        // return response()->json(['slug' => $strippedImages]);
+        $folderPath = public_path('uploads/services/');
+
+        $deletedImagesCount = 0;
+        foreach ($strippedImages as $imageFilename) {
+            $imagePath = $folderPath . $imageFilename;
+            if (File::exists($imagePath)) {
+                if (File::delete($imagePath)) {
+                    $deletedImagesCount++;
+                }
+            }
+        }
+
+        // Check if any images were deleted
+        if ($deletedImagesCount > 0) {
+           $service->delete();
+
+            return redirect()->route('services') ->with('success','service deleted successfully');
+            return true;
+        } else {
+            // Handle the case when no images were deleted (e.g., return false, display an error message, etc.)
+            return false;
+        }
+
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e]);
+        }
+    }
+
+
+    public function edit($slug){
+
+        $service = Service::where('service_slug', $slug)->firstOrFail();
+        $selectedImages = json_decode($service->selected_images);
+        $strippedImages = array_map('strip_tags', $selectedImages);
+        $categories = Category::all();
+
+        // return response()->json($strippedImages);
+    
+        // Pass the service data to the view
+        return view('admin.edit-service', compact('service', 'strippedImages', 'categories'));
+    }
+
+    public function update(Request $request)
+
+    {
+
+        $validator = Validator::make($request->all(), [
+            'service_title' => 'required|string',
+            'service_category' => 'required|string',
+            'service_price' => 'required|numeric',
+            'service_details' => 'required|string',
+            'service_url' => 'required|string',
+            'service_status' => 'required|in:pending,not active,active',
+            'service_slug'  => 'required|string',
+        ]);
+
+          if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+
+        $folderPath = public_path('uploads/services/');
+        $strippedImages = $request->input('stripped_images');
+        // return response()->json($strippedImages);
+
+    
+        try {
+            $selectedImages = [];
+            if ($request->file('images')) {
+                $deletedImagesCount = 0;
+                foreach ($strippedImages as $imageFilename) {
+                    $imagePath = $folderPath . $imageFilename;
+                    if (File::exists($imagePath)) {
+                        if (File::delete($imagePath)) {
+                            $deletedImagesCount++;
+                        }
+                    }
+                }
+    
+                // Check if any images were deleted
+                if ($deletedImagesCount > 0) {
+                    foreach ($request->file('images') as $key => $file) {
+                        $fileName = time() . rand(1, 99) . '.' . $file->extension();
+                        $file->move(public_path('uploads/services'), $fileName);
+                        $selectedImages[] = $fileName;
+                    }
+                } else {
+                    $selectedImages = $strippedImages;
+                }
+            } else {
+                // No new images uploaded, use the existing images
+                $selectedImages = $strippedImages;
+            }
+    
+            // Fetch the existing service by service_slug
+            $service = Service::where('service_slug', $request->service_slug)->firstOrFail();
+    
+            // Update the service attributes
+            $service->update([
+                'service_title' => $request->service_title,
+                'service_category' => $request->input('service_category'),
+                'service_price' => $request->input('service_price'),
+                'service_detail' => $request->service_details,
+                'service_url' => $request->input('service_url'),
+                'selected_images' => json_encode($selectedImages),
+                'service_status' => $request->input('service_status'),
+            ]);
+    
+            return redirect()->route('services')->with('success', 'Service updated successfully');
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e]);
+        }
+    }
+    
+}
