@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Backend\User; // Update the namespace here
+
 
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\Backend\categoryController;
 use App\Http\Controllers\Backend\ServiceController;
+use App\Http\Controllers\Backend\RegisterController;
+use App\Http\Controllers\Backend\AuthController;
 use App\Models\Service;
 use App\Models\Backend\Category;
 
@@ -55,9 +59,16 @@ Route::get('/choose-signup', function () {
 Route::get('/user-signup', function () {
     return view('user-signup');
 })->name('user-signup');
+
 Route::get('/provider-signup', function () {
     return view('provider-signup');
 })->name('provider-signup');
+
+Route::post('/provider-signup', [AuthController::class, 'RegisterProvider'])->name('provider-signup');
+Route::get('/logout', [AuthController::class, 'LogoutUser'])->name('log-out');
+Route::post('/user-signup', [AuthController::class, 'RegisterUser'])->name('user-signup');
+
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');

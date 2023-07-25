@@ -254,6 +254,7 @@
                             </li>
                         </ul>
                     </li> -->
+
                     <li class="has-submenu <?php if($page=="service-grid" || $page=="service-details" || $page=="service-list" || $page=="search-list" || $page=="search" || $page=="providers" || $page=="provider-details") { echo 'active'; } ?>">
                         <a href="/">Services <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu">
@@ -331,6 +332,9 @@
                     'notification','orders','success','customer-booking-calendar']))
                     <li class="has-submenu"><a href="admin/signin">Admin</a></li>
                     @endif -->
+
+                    @auth
+                    @if (Auth::user()->type === 'provider')
                     <li class="has-submenu <?php if($page=="provider-dashboard" || $page=="provider-services" || $page=="provider-booking" || $page=="provider-payout" || $page=="provider-availability" || $page=="provider-holiday" || $page=="provider-coupons" || $page=="provider-offers" || $page=="provider-reviews" || $page=="provider-earnings" || $page=="provider-chat") { echo 'active'; } ?>">
                         <a href="">Providers <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu">
@@ -360,6 +364,9 @@
                             <li class="<?php if($page=="provider-chat") { echo 'active'; } ?>"><a href="{{url('provider-chat')}}">Chat</a></li> -->
                         </ul>
                     </li>
+                    @endif
+
+                    @if (Auth::user()->type === 'user')
                     <li class="has-submenu <?php if($page=="customer-dashboard" || $page=="customer-booking-calendar" || $page=="customer-booking" || $page=="customer-favourite" || $page=="customer-wallet" || $page=="customer-reviews" || $page=="customer-chat" || $page=="customer-profile" || $page=="security-settings" || $page=="customer-notifications" || $page=="connected-apps") { echo 'active'; } ?>">
                         <a href="">Customers <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu">
@@ -372,14 +379,20 @@
                             <li class="<?php if($page=="customer-profile" || $page=="security-settings" || $page=="customer-notifications" || $page=="connected-apps") { echo 'active'; } ?>"><a href="{{url('customer-profile')}}">Settings</a></li> -->
                         </ul>
                     </li>
-                    @if(!Route::is(['invoice','orders','success','customer-booking-calendar']))
+                    @endif
+
+                    @endauth
+
+                 
+
+                    @guest
                     <li class="login-link">
                         <a href="{{url('choose-signup')}}">Register</a>
                     </li>
                     <li class="login-link">
                         <a href="{{url('login')}}">Login</a>
                     </li>
-                    @endif
+                    @endguest
                 </ul>
             </div>
             @if(!Route::is(['choose-signup','user-signup','provider-signup','login','reset-password','password-recovery','phone-otp','email-otp','free-trial',
@@ -387,12 +400,19 @@
             'login-email','login-phone','login-phone1','notification','orders','success','customer-booking-calendar','provider-signup-payment','provider-signup-subscription','index-2','index-3','index-4','index-5',
             'index-6','index-7','index-8','index-9']))
             <ul class="nav header-navbar-rht">
+            @guest
                 <li class="nav-item">
                     <a class="nav-link header-reg" href="{{url('choose-signup')}}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link header-login" href="{{url('login')}}"><i class="fa-regular fa-circle-user me-2"></i>Login</a>
                 </li>
+            @endguest
+                @auth
+                 <li class="nav-item">
+                 <a class="nav-link header-login" href="{{ route('log-out') }}"><i class="fa-regular fa-circle-user me-2"></i>Log out</a>
+                </li>                   
+                @endauth
             </ul>
             @endif
             @if(Route::is(['choose-signup','user-signup','provider-signup','login','reset-password','password-recovery','phone-otp','email-otp','free-trial','login-email','login-phone','login-phone1','success','provider-signup-payment','provider-signup-subscription']))

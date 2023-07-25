@@ -7,9 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-
-
-class CategorySeeder extends Seeder
+class ServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -29,12 +27,11 @@ class CategorySeeder extends Seeder
             $service['created_at'] = $now;
             $service['updated_at'] = $now;
 
-            // Ensure that the number of placeholders matches the number of values
-            $placeholders = array_fill(0, count($service), '?');
+            // Convert the selected_images array to a JSON string
+            $service['selected_images'] = json_encode($service['selected_images']);
 
             DB::table('services')->insert($service);
             $id++;
         }
-        
     }
 }

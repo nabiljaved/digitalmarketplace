@@ -4,6 +4,13 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
+               <div style="margin:20px">
+               @if(session('success'))
+                    <div id="flash-message" class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+               </div>
             <div class="home-banner">
                 <div class="row align-items-center w-100">
                     <div class="col-lg-7 col-md-10 mx-auto">
@@ -1087,6 +1094,14 @@
             </div>
         </div>
     </section>
+    <script>
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.display = 'none';
+            }
+        }, 5000); // Change '5000' to the duration you want (in milliseconds)
+    </script>
     <!-- /App Section -->
     @component('components.model-popup')
     @endcomponent
