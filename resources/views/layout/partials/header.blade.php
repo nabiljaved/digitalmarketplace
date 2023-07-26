@@ -334,6 +334,7 @@
                     @endif -->
 
                     @auth
+
                     @if (Auth::user()->type === 'provider')
                     <li class="has-submenu <?php if($page=="provider-dashboard" || $page=="provider-services" || $page=="provider-booking" || $page=="provider-payout" || $page=="provider-availability" || $page=="provider-holiday" || $page=="provider-coupons" || $page=="provider-offers" || $page=="provider-reviews" || $page=="provider-earnings" || $page=="provider-chat") { echo 'active'; } ?>">
                         <a href="">Providers <i class="fas fa-chevron-down"></i></a>
@@ -379,6 +380,16 @@
                             <li class="<?php if($page=="customer-profile" || $page=="security-settings" || $page=="customer-notifications" || $page=="connected-apps") { echo 'active'; } ?>"><a href="{{url('customer-profile')}}">Settings</a></li> -->
                         </ul>
                     </li>
+                    @endif
+
+                    @if (Auth::user()->type === 'admin')
+
+                    <li >
+                        <a href="{{url('admin/index_admin')}}">Admin Dashboard</i></a>
+                      
+                    </li>
+
+
                     @endif
 
                     @endauth

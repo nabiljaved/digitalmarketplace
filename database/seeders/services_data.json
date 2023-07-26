@@ -2,51 +2,66 @@
   {
     "service_title": "Email Marketing Campaign",
     "service_price": 120,
+    "service_previous_price": 100,  
     "service_category": 4,
     "service_status": "active",
     "service_detail": "Reach your target audience through effective email marketing campaigns.",
     "service_url": "https://example.com/email-marketing",
-    "selected_images": ["email-marketing-1.png", "email-marketing-2.png", "email-marketing-3.png"],
-    "service_slug": "email-marketing-campaign"
+    "selected_images": ["email-marketing-1.jpg", "email-marketing-2.png", "email-marketing-3.jpg"],
+    "service_slug": "email-marketing-campaign",
+    "service_isFeatured": 1,
+    "service_isPopular": 0
   },
   {
     "service_title": "PPC Advertising Service",
     "service_price": 250,
+    "service_previous_price": 150,  
     "service_category": 5,
     "service_status": "active",
     "service_detail": "Drive targeted traffic to your website with our PPC advertising service.",
     "service_url": "https://example.com/ppc-advertising",
-    "selected_images": ["ppc-advertising-1.jpg", "ppc-advertising-2.jpg", "ppc-advertising-3.jpg"],
-    "service_slug": "ppc-advertising-service"
+    "selected_images": ["ppc-advertising-1.jpg", "ppc-advertising-2.png", "ppc-advertising-3.png"],
+    "service_slug": "ppc-advertising-service",
+    "service_isFeatured": 0,
+    "service_isPopular": 1
   },
   {
     "service_title": "Web Design & Development",
     "service_price": 500,
+    "service_previous_price": 400, 
     "service_category": 6,
     "service_status": "active",
     "service_detail": "Create a stunning website with our professional web design & development service.",
     "service_url": "https://example.com/web-design-development",
-    "selected_images": ["web-design-development-1.jpg", "web-design-development-2.jpg", "web-design-development-3.jpg"],
-    "service_slug": "web-design-development"
+    "selected_images": ["web-design-development-1.jpeg", "web-design-development-2.png", "web-design-development-3.jpg"],
+    "service_slug": "web-design-development",
+    "service_isFeatured": 1,
+    "service_isPopular": 1
   },
   {
     "service_title": "Influencer Marketing Campaign",
     "service_price": 300,
+    "service_previous_price": 220, 
     "service_category": 7,
     "service_status": "not active",
     "service_detail": "Collaborate with influencers to promote your brand effectively.",
     "service_url": "https://example.com/influencer-marketing",
     "selected_images": ["influencer-marketing-1.jpg", "influencer-marketing-2.jpg", "influencer-marketing-3.jpg"],
-    "service_slug": "influencer-marketing-campaign"
+    "service_slug": "influencer-marketing-campaign",
+    "service_isFeatured": 0,
+    "service_isPopular": 0
   },
   {
     "service_title": "Analytics & Insights",
     "service_price": 100,
+    "service_previous_price": 50,  
     "service_category": 8,
     "service_status": "pending",
     "service_detail": "Gain valuable insights into your website's performance with advanced analytics.",
     "service_url": "https://example.com/analytics-insights",
-    "selected_images": ["analytics-insights-1.jpg", "analytics-insights-2.png", "analytics-insights-3.jpg"],
-    "service_slug": "analytics-insights"
+    "selected_images": ["analytics-insights-1.png", "analytics-insights-2.jpg", "analytics-insights-3.png"],
+    "service_slug": "analytics-insights",
+    "service_isFeatured": 0,
+    "service_isPopular": 0
   }
 ]

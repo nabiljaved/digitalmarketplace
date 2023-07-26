@@ -14,12 +14,15 @@ class Service extends Model
     protected $fillable = [
         'service_title',
         'service_price',
+        'service_previous_price',
         'service_category',
         'service_status',
         'service_detail',
         'service_url',
         'selected_images',
-        'service_slug'
+        'service_slug',
+        'service_isFeatured',
+        'service_isPopular'
     ];
 
     // Define the relationship with the Category model

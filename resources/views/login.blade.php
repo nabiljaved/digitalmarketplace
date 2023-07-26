@@ -8,21 +8,28 @@
                     <div class="login-wrap">
                         <div class="login-header">
                             <h3>Login</h3>
-                            <p>We'll send a confirmation code to your email.</p>
-                            <h6>Sign in with <a href="{{ url('login-phone') }}">Phone Number</a></h6>
+                            <!-- <p>We'll send a confirmation code to your email.</p>
+                            <h6>Sign in with <a href="{{ url('login-phone') }}">Phone Number</a></h6> -->
                         </div>
 
+                        @if(session('error'))
+                            <div id="flash-message" class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                         @endif
+
                         <!-- Login Form -->
-                        <form action="customer-dashboard">
+                        <form action="{{ route('user-signin') }}" method="post">
+                        @csrf 
                             <div class="log-form">
                                 <div class="form-group">
                                     <label class="col-form-label">E-mail</label>
-                                    <input type="text" class="form-control" placeholder="example@email.com">
+                                    <input type="text" class="form-control" placeholder="example@email.com" name="email">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label d-block">Password</label>
                                     <div class="pass-group">
-                                        <input type="password" class="form-control pass-input" placeholder="*************">
+                                        <input type="password" class="form-control pass-input" placeholder="*************" name="password">
                                         <span class="toggle-password feather-eye"></span>
                                     </div>
                                 </div>
@@ -47,10 +54,10 @@
                                         </label>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <label class="custom_check">
+                                        <!-- <label class="custom_check">
                                             <input type="checkbox" name="loginotp" class="loginotp">
                                             <span class="checkmark"></span>Login with OTP
-                                        </label>
+                                        </label> -->
                                     </div>
                                 </div>
                             </div>
@@ -77,4 +84,12 @@
 
         </div>
     </div>
+    <script>
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.display = 'none';
+            }
+        }, 5000); // Change '5000' to the duration you want (in milliseconds)
+    </script>
 @endsection

@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('service_title');
             $table->decimal('service_price');
+            $table->decimal('service_previous_price');
             $table->unsignedBigInteger('service_category');
             $table->string('service_slug')->unique();
             $table->foreign('service_category')->references('id')->on('categories');
+            $table->boolean('service_isFeatured')->default(false);
+            $table->boolean('service_isPopular')->default(false);
             $table->enum('service_status', ['pending', 'not active', 'active'])->default('pending');
             $table->text('service_detail');
             $table->text('service_url');

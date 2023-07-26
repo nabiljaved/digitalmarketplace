@@ -31,8 +31,52 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label>Previous Price</label>
+                                    <input type="text" class="form-control" placeholder="Enter Price"  name="service_previous_price">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>Service Slug</label>
                                     <input type="text" class="form-control" placeholder="Enter Slug"  name="service_slug">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Is Featured?</label>
+                                    <ul class="custom-radiosbtn">
+                                        <li>
+                                            <label class="radiossets">Yes
+                                            <input type="radio" checked="checked" name="service_isFeatured" value="1">
+                                                <span class="checkmark-radio"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="radiossets">No
+                                            <input type="radio" name="service_isFeatured" value="0">
+                                                <span class="checkmark-radio"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Is Popular?</label>
+                                    <ul class="custom-radiosbtn">
+                                        <li>
+                                            <label class="radiossets">Yes
+                                            <input type="radio" checked="checked" name="service_isPopular" value="1">
+                                                <span class="checkmark-radio"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="radiossets">No
+                                            <input type="radio" name="service_isPopular" value="0">
+                                                <span class="checkmark-radio"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="col-md-6">

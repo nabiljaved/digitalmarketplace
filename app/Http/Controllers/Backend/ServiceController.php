@@ -44,29 +44,37 @@ class ServiceController extends Controller
             'service_title' => 'required|string',
             'service_category' => 'required|string',
             'service_price' => 'required|numeric',
+            'service_previous_price' => 'required|numeric',
             'service_details' => 'required|string',
             'service_url' => 'required|string',
             'selected_images' => 'required|array',
             'service_status' => 'required|in:pending,not active,active',
             'service_slug'  => 'required|string',
+            'service_isFeatured'  => 'required|boolean',
+            'service_isPopular'  => 'required|boolean',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
+    
         $selectedImages = [];
         if ($request->file('images')){
             foreach($request->file('images') as $key => $file)
             {
                 $fileName = time().rand(1,99).'.'.$file->extension();  
-                $file->move(public_path('uploads/services'), $fileName);
+                $file->move(public_path('uploads/service'), $fileName);
                 $selectedImages[] = $fileName;
             }
         }
 
         
         try {
+
+                $isFeatured = (bool) $request->input('service_isFeatured');
+                $isPopular = (bool) $request->input('service_isPopular');
+
 
             $service = Service::create([
                 'service_title' => $request->service_title,
@@ -77,6 +85,9 @@ class ServiceController extends Controller
                 'selected_images' => json_encode($selectedImages), 
                 'service_status' => $request->input('service_status'),
                 'service_slug' => $request->service_slug,
+                'service_isFeatured' => (bool) $request->input('service_isFeatured'),
+                'service_isPopular' => (bool) $request->input('service_isPopular'),
+                'service_previous_price'  => $request->input('service_previous_price')
           ]);
 
           return redirect()->route('services')->with('success','services added successfully');
@@ -84,31 +95,6 @@ class ServiceController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e ]);
         }
-  
-         
-
-
-
-
-
-        // Create a new service record
-        // $service = Service::create([
-        //     'service_title' => $request->service_title,
-        //     'service_category' => $request->input('service_category'),
-        //     'service_price' => floatval($request->input('service_price')),
-        //     'service_details' => $request->input('service_details'),
-        //     'service_url' => $request->input('service_url'),
-        //     'selected_images' => $selectedImages,
-        //     'service_status' => $request->input('service_status'),
-
-        // ]);
-
-        //     return response()->json(['data'=>$requestData, 'images'=>$selectedImages]);
-
-        //     return redirect()->route('add-services')
-        // ->with('success','services added successfully');
-
-
 
     }
 
@@ -116,10 +102,7 @@ class ServiceController extends Controller
 
     public function destroy($slug)
 
-    {
-
-
-       
+    {    
 
         try {
             
@@ -131,23 +114,35 @@ class ServiceController extends Controller
         $folderPath = public_path('uploads/services/');
 
         $deletedImagesCount = 0;
+        $imageNotExist= false;
+
         foreach ($strippedImages as $imageFilename) {
             $imagePath = $folderPath . $imageFilename;
             if (File::exists($imagePath)) {
                 if (File::delete($imagePath)) {
                     $deletedImagesCount++;
                 }
+            }else{
+                $imageNotExist= true;
             }
         }
 
         // Check if any images were deleted
         if ($deletedImagesCount > 0) {
-           $service->delete();
+       
+            $service->delete();
 
             return redirect()->route('services') ->with('success','service deleted successfully');
             return true;
+          
         } else {
             // Handle the case when no images were deleted (e.g., return false, display an error message, etc.)
+            if($imageNotExist){
+                $service->delete();
+
+                return redirect()->route('services') ->with('success','service deleted successfully');
+                return true;
+              }
             return false;
         }
 
@@ -179,15 +174,19 @@ class ServiceController extends Controller
             'service_title' => 'required|string',
             'service_category' => 'required|string',
             'service_price' => 'required|numeric',
+            'service_previous_price' => 'required|numeric',
             'service_details' => 'required|string',
             'service_url' => 'required|string',
             'service_status' => 'required|in:pending,not active,active',
             'service_slug'  => 'required|string',
+            'service_isFeatured'  => 'required|boolean',
+            'service_isPopular'  => 'required|boolean', 
         ]);
 
           if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
+
 
 
         $folderPath = public_path('uploads/services/');
@@ -216,7 +215,11 @@ class ServiceController extends Controller
                         $selectedImages[] = $fileName;
                     }
                 } else {
-                    $selectedImages = $strippedImages;
+                    foreach ($request->file('images') as $key => $file) {
+                        $fileName = time() . rand(1, 99) . '.' . $file->extension();
+                        $file->move(public_path('uploads/services'), $fileName);
+                        $selectedImages[] = $fileName;
+                    }
                 }
             } else {
                 // No new images uploaded, use the existing images
@@ -235,6 +238,9 @@ class ServiceController extends Controller
                 'service_url' => $request->input('service_url'),
                 'selected_images' => json_encode($selectedImages),
                 'service_status' => $request->input('service_status'),
+                'service_isFeatured' => (bool) $request->input('service_isFeatured'),
+                'service_isPopular' => (bool) $request->input('service_isPopular'),
+                'service_previous_price'  => $request->input('service_previous_price')
             ]);
     
             return redirect()->route('services')->with('success', 'Service updated successfully');

@@ -37,6 +37,8 @@
                                     <th>Category</th>
                                     <th>Service Slug</th>
                                     <th>Amount</th>
+                                    <th>Featured</th>
+                                    <th>Popular</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Created By</th>
@@ -59,7 +61,23 @@
                                     </td>
                                     <td>{{ $service->service_category }}</td>
                                     <td>{{ $service->service_slug }}</td>
-                                    <td>${{ $service->service_price }}</td>
+                                    <td>AED {{ $service->service_price }}</td>
+                                    <td>
+                                        <div class="active-switch">
+                                            <label class="switch">
+                                                <input type="checkbox" {{ $service->service_isFeatured ? 'checked' : '' }}>
+                                                <span class="sliders round"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="active-switch">
+                                            <label class="switch">
+                                                <input type="checkbox"  {{ $service->service_isPopular ? 'checked' : '' }}>
+                                                <span class="sliders round"></span>
+                                            </label>
+                                        </div>
+                                    </td>
                                     <td>{{ $service->created_at->format('d M Y') }}</td>
                                     <td>
                                         @if ($service->service_status == 'not active')

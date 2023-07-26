@@ -32,8 +32,12 @@ Route::post('admin/custom-register', [CustomAuthController::class, 'customRegist
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 Route::get('/', function () {
-    return view('index');
+    $categories = Category::all();
+    $services = Service::all();
+
+    return view('index', ["categories" =>  $categories, "services" =>  $services]);
 })->name('index'); 
+
 Route::get('/about-us', function () {
     return view('about-us');
 })->name('about-us'); 
@@ -67,6 +71,7 @@ Route::get('/provider-signup', function () {
 Route::post('/provider-signup', [AuthController::class, 'RegisterProvider'])->name('provider-signup');
 Route::get('/logout', [AuthController::class, 'LogoutUser'])->name('log-out');
 Route::post('/user-signup', [AuthController::class, 'RegisterUser'])->name('user-signup');
+Route::post('/user-signin', [AuthController::class, 'loginUser'])->name('user-signin');
 
 
 Route::get('/login', function () {

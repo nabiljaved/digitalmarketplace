@@ -101,4 +101,34 @@ class AuthController extends Controller
         return redirect()->route('index')->with('success','successfully log out');
 
     }
+
+    public function loginUser(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Please Enter Correct Fields');
+
+            // return response()->json(['errors' => $validator->errors()], 400);
+        }
+    
+        // Check if the user exists in the database
+        $user = User::where('email', $request->input('email'))->first();
+    
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+    
+        // Check if the provided password matches the stored password
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return redirect()->back()->with('error', 'Invalid email or password.');
+        }
+    
+        // Attempt to log in the user
+        Auth::login($user);
+    
+        return redirect()->route('index')->with('success','Login SuccessFull');
+    }
 }
