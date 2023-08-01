@@ -5,11 +5,12 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
       <title>Digital Market</title>
 
+      <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/img/stand.png')}}">
       <!-- Favicon -->
-      @if(!Route::is(['index-2','index-3','index-9']))
+      @if(!Route::is(['index-2','index-3','index-9','index']))
       <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/img/stand.png')}}">
       @endif
-      @if(Route::is(['index-2','index-3','index-9']))
+      @if(Route::is(['index-2','index-3','index-9','index']))
       <link rel="shortcut icon" href="{{url('assets/img/stand.png')}}">
       @endif
       @include('layout.partials.head')

@@ -1381,14 +1381,14 @@ Version      : 1.0
 	if ($('#phone').length > 0) {
 		var input = document.querySelector("#phone");
 		window.intlTelInput(input, {
-			utilsScript: "assets/plugins/intltelinput/js/utils.js",
+			utilsScript: "assets/plugins/intltelinput/js/intlTelInput.js",
 		});
 	}
 
 	if ($('#phone1').length > 0) {
 		var input = document.querySelector("#phone1");
 		window.intlTelInput(input, {
-			utilsScript: "assets/plugins/intltelinput/js/utils.js",
+			utilsScript: "assets/plugins/intltelinput/js/intlTelInput",
 		});
 	}
 

@@ -1,15 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Backend\User; // Update the namespace here
+use App\Models\User; // Update the namespace here
 
 
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Backend\categoryController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Models\Service;
+use App\Models\CreditPayment;
+
 use App\Models\Backend\Category;
 
 
@@ -31,12 +34,42 @@ Route::get('admin/signup', [CustomAuthController::class, 'registration'])->name(
 Route::post('admin/custom-register', [CustomAuthController::class, 'customRegistration'])->name('signup.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
+##### MAIN PAGE ####
+
 Route::get('/', function () {
     $categories = Category::all();
     $services = Service::all();
 
     return view('index', ["categories" =>  $categories, "services" =>  $services]);
 })->name('index'); 
+
+Route::get('/choose-signup', function () {
+    return view('choose-signup');
+})->name('choose-signup');
+
+##### SIGN UP / LOGIN SERVICES ####
+
+Route::get('/user-signup', function () {
+    return view('user-signup');
+})->name('user-signup');
+
+Route::get('/provider-signup', function () {
+    return view('provider-signup');
+})->name('provider-signup');
+
+Route::post('/provider-signup', [AuthController::class, 'RegisterProvider'])->name('provider-signup');
+Route::get('/logout', [AuthController::class, 'LogoutUser'])->name('log-out');
+Route::post('/user-signup', [AuthController::class, 'RegisterUser'])->name('user-signup');
+Route::post('/user-signin', [AuthController::class, 'loginUser'])->name('user-signin');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+
+###service details 
+
+Route::get('/service-details/{slug}',[ServiceController::class, 'serviceDetail'])->name('service-details');
+
 
 Route::get('/about-us', function () {
     return view('about-us');
@@ -55,28 +88,9 @@ Route::get('/error-500', function () {
 })->name('error-500');
 
 
-Route::get('/choose-signup', function () {
-    return view('choose-signup');
-})->name('choose-signup');
 
 
-Route::get('/user-signup', function () {
-    return view('user-signup');
-})->name('user-signup');
 
-Route::get('/provider-signup', function () {
-    return view('provider-signup');
-})->name('provider-signup');
-
-Route::post('/provider-signup', [AuthController::class, 'RegisterProvider'])->name('provider-signup');
-Route::get('/logout', [AuthController::class, 'LogoutUser'])->name('log-out');
-Route::post('/user-signup', [AuthController::class, 'RegisterUser'])->name('user-signup');
-Route::post('/user-signin', [AuthController::class, 'loginUser'])->name('user-signin');
-
-
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
 Route::get('/reset-password', function () {
     return view('reset-password');
 })->name('reset-password'); 
@@ -95,22 +109,16 @@ Route::get('/free-trial', function () {
 Route::get('/booking', function () {
     return view('booking');
 })->name('booking');
-Route::get('/booking-payment', function () {
-    return view('booking-payment');
-})->name('booking-payment');
+
+Route::get('/booking-payment/{slug}',[PaymentController::class, 'bookingPage'])->name('booking-payment');
+Route::post('/check-payment',[PaymentController::class, 'CheckPayment'])->name('check-payment');
+
 Route::get('/booking-done', function () {
     return view('booking-done');
 })->name('booking-done');
 
 
-Route::get('/categories', function () {
-
-
-
-    return view('categories');
-
-
-})->name('categories');
+Route::get('/index-categories/{slug}', [ServiceController::class, 'serviceByCategory'])->name('index-categories');
 
 
 
@@ -321,9 +329,6 @@ Route::get('/provider-signup-payment', function () {
 Route::get('/provider-signup-subscription', function () {
     return view('provider-signup-subscription');
 })->name('provider-signup-subscription');
-Route::get('/service-details', function () {
-    return view('service-details');
-})->name('service-details');
 
 Route::get('/index-2', function () {
     return view('index-2');
@@ -442,6 +447,18 @@ Route::post('/edit-service/{slug}', [ServiceController::class, 'update'])->name(
             return view('admin.categories', ['categories'=>$categories]);
         
             })->name('categories');
+
+    //get credit payment 
+
+    Route::get('/credit-payments', function () {
+
+        $payments = CreditPayment::all();
+        $users = User::all();
+
+    
+        return view('admin.credit-payments', compact('payments', 'users'));
+    
+        })->name('credit-payments');
 
     //add categories   
     Route::post('/add-categories', [categoryController::class, 'create'])->name('add-categories'); 
@@ -1004,4 +1021,7 @@ Route::post('/edit-service/{slug}', [ServiceController::class, 'update'])->name(
     return view('admin.edit-blog');
     })->name('edit-blog');
 
-});
+}
+
+
+);

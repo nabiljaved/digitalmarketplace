@@ -15,6 +15,20 @@
         @endslot
     @endcomponent
 
+<style>
+    .service-images.small-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* This sets the space between the images */
+    }
+
+    .service-images.small-gallery img {
+        max-width: 100%;
+    }
+
+    
+</style>
+
     <div class="content">
         <div class="container">
             <div class="row">
@@ -22,13 +36,13 @@
                 <!-- Service Profile -->
                 <div class="col-md-8">
                     <div class="serv-profile">
-                        <h2>Car Repair Services</h2>
-                        <ul>
+                        <h2>{{$service->service_title}}</h2>
+                        <!-- <ul>
                             <li>
                                 <span class="badge">Car Wash</span>
                             </li>
                             <li class="service-map"><i class="feather-map-pin"></i> Alabama, USA</li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -50,36 +64,30 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-md-12">
-                    <div class="service-gal">
-                        <div class="row gx-2">
-                            <div class="col-md-9">
-                                <div class="service-images big-gallery">
-                                    <img src="{{ URL::asset('/assets/img/services/service-ban-01.jpg') }}" class="img-fluid"
-                                        alt="img">
-                                    <a href="{{ url('assets/img/services/service-ban-01.jpg') }}" data-fancybox="gallery"
-                                        class="btn btn-show"><i class="feather-image me-2"></i>Show all photos</a>
-                                </div>
+                <div class="service-gal">
+                    <div class="row gx-2">
+                        <div class="col-md-9">
+                            <div class="service-images big-gallery">
+                                <img src="{{ asset('uploads/services/' . $selectedImagesArray[0]) }}" class="img-fluid" alt="img">
                             </div>
-                            <div class="col-md-3">
-                                <div class="service-images small-gallery">
-                                    <a href="{{ url('assets/img/services/service-ban-013.jpg') }}" data-fancybox="gallery">
-                                        <img src="{{ URL::asset('/assets/img/services/service-ban-02.jpg') }}"
-                                            class="img-fluid" alt="img">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="service-images small-gallery" >
+                                @foreach ($selectedImagesArrayAfterFirst as $image)
+                                    <a href="{{ asset('uploads/services/' . $image) }}" data-fancybox="gallery">
+                                        <img src="{{ asset('uploads/services/' . $image) }}" class="img-fluid" alt="img">
                                         <span class="circle-icon"><i class="feather-plus"></i></span>
                                     </a>
-                                </div>
-                                <div class="service-images small-gallery">
-                                    <a href="{{ url('assets/img/services/service-ban-012.jpg') }}" data-fancybox="gallery">
-                                        <img src="{{ URL::asset('/assets/img/services/service-ban-03.jpg') }}"
-                                            class="img-fluid" alt="img">
-                                        <span class="circle-icon"><i class="feather-plus"></i></span>
-                                    </a>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+              
                 <!-- /Service Profile -->
             </div>
 
@@ -89,11 +97,9 @@
                 <div class="col-lg-8">
                     <div class="service-wrap">
                         <h5>Service Details</h5>
-                        <p>Car wash is a facility used to clean the exterior and, in some cases, the interior of motor
-                            vehicles. Car washes can be self-serve, fully automated, or full-service with attendants who
-                            wash the vehicle.</p>
+                        <p>{{$service->service_detail}}</p>
                     </div>
-                    <div class="service-wrap provide-service">
+                    <!-- <div class="service-wrap provide-service">
                         <h5>Service Provider</h5>
                         <div class="row">
                             <div class="col-md-4">
@@ -162,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="service-wrap">
                         <div class="row">
                             <div class="col-md-6">
@@ -173,40 +179,23 @@
                             </div>
                         </div>
                         <div class="owl-carousel gallery-slider">
-                            <div class="gallery-widget">
-                                <a href="{{ url('assets/img/gallery/gallery-big-01.jpg') }}" data-fancybox="gallery">
-                                    <img class="img-fluid" alt="Image"
-                                        src="{{ URL::asset('/assets/img/gallery/gallery-01.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="gallery-widget">
-                                <a href="{{ url('assets/img/gallery/gallery-big-02.jpg') }}" data-fancybox="gallery">
-                                    <img class="img-fluid" alt="Image"
-                                        src="{{ URL::asset('/assets/img/gallery/gallery-02.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="gallery-widget">
-                                <a href="{{ url('assets/img/gallery/gallery-big-03.jpg') }}" data-fancybox="gallery">
-                                    <img class="img-fluid" alt="Image"
-                                        src="{{ URL::asset('/assets/img/gallery/gallery-03.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="gallery-widget">
-                                <a href="{{ url('assets/img/gallery/gallery-big-02.jpg') }}" data-fancybox="gallery">
-                                    <img class="img-fluid" alt="Image"
-                                        src="{{ URL::asset('/assets/img/gallery/gallery-02.jpg') }}">
-                                </a>
-                            </div>
+                            @foreach ($selectedImagesArray as $image)
+                                <div class="gallery-widget" >
+                                    <a href="{{ asset('uploads/services/' . $image) }}" data-fancybox="gallery">
+                                        <img class="img-fluid" alt="Image" src="{{ asset('uploads/services/' . $image) }}" style="height:10rem">
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="service-wrap">
                         <h5>Video</h5>
-                        <div id="background-video">
-                            <a class="play-btn" data-fancybox="" href="https://www.youtube.com/watch?v=Vdp6x7Bibtk"><i
-                                    class="fa-solid fa-play"></i></a>
+                        <div>
+                            <iframe width="100%" height="500" src="https://www.youtube.com/embed/{{ getYoutubeVideoId($service->service_url) }}"
+                                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                     </div>
-                    <div class="service-wrap">
+                    <!-- <div class="service-wrap">
                         <h5>Reviews</h5>
                         <ul>
                             <li class="review-box">
@@ -345,7 +334,7 @@
                             <a href="{{ url('customer-reviews') }}" class="btn btn-primary btn-review">View All
                                 Reviews</a>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row align-items-center">
                         <div class="col-md-6">
@@ -358,96 +347,43 @@
                         </div>
                     </div>
                     <div class="owl-carousel related-slider">
+    @foreach ($otherServices as $otherService)
+        @php
+            $image = json_decode($otherService->selected_images);
+            $categoryId = (int)$otherService->service_category;
+            $category = collect($categories)->firstWhere('id', $categoryId);
+        @endphp
 
-                        <div class="service-widget mb-0">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-01.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Cleaning</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-04.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Electric Panel Repairing Service</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Montana, USA<span class="rate"><i
-                                            class="fas fa-star filled"></i>4.9</span></p>
-                                <div class="serv-info">
-                                    <h6>$25.00<span class="old-price">$35.00</span></h6>
-                                    <a href="{{ url('booking') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-widget mb-0">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-02.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Construction</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-03.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Toughened Glass Fitting Services</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Montana, USA</p>
-                                <div class="serv-info">
-                                    <h6>$45.00</h6>
-                                    <a href="{{ url('booking') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-widget mb-0">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-03.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Carpentry</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-02.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Wooden Carpentry Work</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Montana, USA</p>
-                                <div class="serv-info">
-                                    <h6>$45.00</h6>
-                                    <a href="{{ url('booking') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="service-widget mb-0">
+            <div class="service-img">
+                <a href="{{ url('service-details', $otherService->service_slug) }}">
+                    <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('uploads/services/' . $image[0]) }}">                           
+                </a>
+                <div class="fav-item">
+                    @if ($category)
+                        <a href="{{ url('service-details', $otherService->service_slug) }}"><span class="item-cat">{{ $category['category_name'] }}</span></a>
+                    @endif
+                    <a href="javascript:void(0)" class="fav-icon">
+                        <i class="feather-heart"></i>
+                    </a>
+                </div>
+                <div class="item-info">
+                    <a href="{{ url('providers') }}"><span class="item-img"><img src="{{ asset('assets/img/company/logo.png') }}" class="avatar" alt=""></span></a>
+                </div>
+            </div>
+            <div class="service-content">
+                <h3 class="title">
+                    <a href="{{ url('service-details', $otherService->service_slug) }}">{{ $otherService->service_title }}</a>
+                </h3>
+                <p><i class="feather-map-pin"></i>Oracle Digtial , UAE<span class="rate"><i class="fas fa-star filled"></i>4.9</span></p>
+                <div class="serv-info">
+                    <h6>AED {{ $otherService->service_price }}<span class="old-price">AED {{ $otherService->service_previous_price }}</span></h6>
+                    <a href="{{ url('booking') }}" class="btn btn-book">Book Now</a>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
 
                 </div>
                 <!-- /Service Details -->
@@ -459,12 +395,12 @@
                         <div class="card-body">
                             <div class="provide-widget">
                                 <div class="service-amount">
-                                    <h5>$150<span>$170</span></h5>
+                                    <h5>AED  {{ $service->service_price }}<span>{{ $service->service_previous_price }}</span></h5>
                                     <p class="serv-review"><i class="fa-solid fa-star"></i> <span>4.9 </span>(255 reviews)
                                     </p>
                                 </div>
                                 <div class="serv-proimg">
-                                    <img src="{{ URL::asset('/assets/img/profiles/avatar-02.jpg') }}" class="img-fluid"
+                                    <img src="{{ asset('assets/img/company/logo.png')}}" class="img-fluid"
                                         alt="img">
                                     <span><i class="fa-solid fa-circle-check"></i></span>
                                 </div>
@@ -478,7 +414,7 @@
                                     <li>Pre Purchase Inspection</li>
                                 </ul>
                             </div>
-                            <div class="package-widget pack-service">
+                            <!-- <div class="package-widget pack-service">
                                 <h5>Additional Service</h5>
                                 <ul>
                                     <li>
@@ -566,19 +502,19 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="card card-available">
                                 <div class="card-body">
                                     <div class="available-widget">
                                         <div class="available-info">
                                             <h5>Service Availability</h5>
                                             <ul>
-                                                <li>Monday <span>9:30 AM - 7:00 PM</span> </li>
-                                                <li>Tuesday <span>9:30 AM - 7:00 PM</span> </li>
-                                                <li>Wednesday <span>9:30 AM - 7:00 PM</span> </li>
-                                                <li>Thursday <span>9:30 AM - 7:00 PM</span> </li>
-                                                <li>Friday <span>9:30 AM - 7:00 PM</span> </li>
-                                                <li>Saturday <span>9:30 AM - 7:00 PM</span> </li>
+                                                <li>Monday <span>9:00 AM - 6:00 PM</span> </li>
+                                                <li>Tuesday <span>9:00 AM - 6:00 PM</span> </li>
+                                                <li>Wednesday <span>9:00 AM - 6:00 PM</span> </li>
+                                                <li>Thursday <span>9:00 AM - 6:00 PM</span> </li>
+                                                <li>Friday <span>9:00 AM - 6:00 PM</span> </li>
+                                                <li>Saturday <span class="text-danger">Closed</span> </li>
                                                 <li>Sunday <span class="text-danger">Closed</span> </li>
                                             </ul>
                                         </div>
@@ -586,12 +522,9 @@
                                 </div>
                             </div>
                             <div class="map-grid">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509170.989457427!2d-123.80081967108484!3d37.192957227641294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2sin!4v1669181581381!5m2!1sen!2sin"
-                                    style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade" class="contact-map"></iframe>
+                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.720447201785!2d55.35109507491926!3d25.27998782834328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5dbd4d43ef29%3A0x3a40a28f1e59ccf7!2sOracle%20Digital%20%7CSocial%20Media%20marketing%20and%20Digital%20Marketing%20Dubai%20%7C%20Website%20Development%7C%20Social%20Media%20%7C%20E-Commerce%20Website!5e0!3m2!1sen!2sae!4v1690791985842!5m2!1sen!2sae" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
-                            <a href="{{ url('booking') }}" class="btn btn-primary">Book Service</a>
+                            <a href="{{ route('booking-payment',['slug' => $service->service_slug ]) }}" class="btn btn-primary">Book Service</a>
                         </div>
                     </div>
 
@@ -603,4 +536,16 @@
             </div>
         </div>
     </div>
+
+        @php
+            function getYoutubeVideoId($url) {
+                $parsedUrl = parse_url($url);
+                parse_str($parsedUrl['query'], $queryParams);
+                if (isset($queryParams['v'])) {
+                    return $queryParams['v'];
+                }
+                return null;
+            }
+    @endphp
+
 @endsection

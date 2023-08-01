@@ -79,7 +79,14 @@ body {
     height: 100%;
 	overflow-x: hidden;
 	line-height: 1.6;
+	
 }
+
+.uae-flag {
+    width: 30px; /* Adjust the width and height as needed */
+    height: 20px;
+    margin-right: 10px; /* Adjust the margin as needed to position the flag accordingly */
+}	
 
 h1, h2, h3, h4, h5, h6 {
     color: #28283C;
@@ -2918,10 +2925,10 @@ html.menu-opened body {
 	float: right;
 }
 .item-img img {
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	border: 1px solid #fff;
+	max-width: 4rem;
+    max-height: 2rem;
+    /* border-radius: 50%; */
+    border: 1px solid #2229c1;
 }
 .fav-item {
 	display: -webkit-box;

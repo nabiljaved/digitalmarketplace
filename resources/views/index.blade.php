@@ -19,8 +19,8 @@
                 <div class="row align-items-center w-100">
                     <div class="col-lg-7 col-md-10 mx-auto">
                         <div class="section-search aos" data-aos="fade-up">
-                            <h1>Professional Services For Your Home & Commercial </h1>
-                            <p>Search From 100 Awesome Verified Ads!</p>
+                            <h1>Professional Services For Your Digital MArketing </h1>
+                            <p>Search From 100+ Awesome Services !</p>
                             <div class="search-box">
                                 <form action="search">
                                     <div class="search-input line">
@@ -29,7 +29,7 @@
                                         </div>
                                         <div class="form-group mb-0">
                                             <label>Your Location</label>
-                                            <input type="text" class="form-control" placeholder="America">
+                                            <input type="text" class="form-control" placeholder="Dubai">
                                         </div>
                                     </div>
                                     <div class="search-input">
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="form-group mb-0">
                                             <label>What are you looking for?</label>
-                                            <input type="text" class="form-control" placeholder="Car Repair Services">
+                                            <input type="text" class="form-control" placeholder="Email Marketing">
                                         </div>
                                     </div>
                                     <div class="search-btn">
@@ -89,14 +89,14 @@
             </div>
             <div class="row">
              @foreach($categories as $category)
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
+                <div class="col-md-6 col-lg-3" >
+                    <a href="{{ route('index-categories', ['slug' => $category->category_slug]) }}" class="feature-box aos" data-aos="fade-up">
+                        <div class="feature-icon" >
                           
-                                <img src="{{ asset('uploads/categories/' . $category->category_image) }}" alt="{{$category->category_image}}">
+                                <img src="{{ asset('uploads/categories/' . $category->category_image) }}" alt="{{$category->category_image}}" >
                            
                         </div>
-                        <h5>{{$category->category_name}}</h5>
+                        <h5>{{ substr($category->category_name, 0, 20)}}...</h5>
                     <div class="feature-overlay">
                         <img src="{{ asset('uploads/categories/' . $category->category_image) }}" alt="{{$category->category_image}}">
                     </div>
@@ -213,9 +213,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="owl-carousel service-slider">
+        <div class="row">
+            <div class="col-md-12">
+           <div class="owl-carousel service-slider">
 
                     @foreach($services as $service)
                     
@@ -227,10 +227,10 @@
                     $selectedImagesArray = json_decode($service->selected_images);
                 @endphp
 
-                @if($service->service_isFeatured == 1) <!-- Add this condition -->
+                @if($service->service_isFeatured == 1) 
                     <div class="service-widget aos" data-aos="fade-up">
                         <div class="service-img">
-                            <a href="{{ url('service-details') }}">
+                            <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">
                                 @if(isset($selectedImagesArray) && is_array($selectedImagesArray) && count($selectedImagesArray) > 0)
                                     <img src="{{ asset('uploads/services/' . $selectedImagesArray[0]) }}" alt="Service Image">
                                 @else
@@ -238,23 +238,23 @@
                                 @endif
                             </a>
                             <div class="fav-item">
-                                <a href="{{ url('categories') }}"><span class="item-cat">{{ $category->category_name }}</span></a>
+                                <a href="{{ route('index-categories', ['slug' => $category->category_slug]) }}"><span class="item-cat">{{ $category->category_name }}</span></a>
                                 <a href="javascript:void(0)" class="fav-icon">
                                     <i class="feather-heart"></i>
                                 </a>
                             </div>
                             <div class="item-info">
-                                <a href="{{ url('providers') }}"><span class="item-img"><img src="{{ URL::asset('/assets/img/logo.png') }}" class="avatar" alt=""></span></a>
+                                <!-- <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}"><span class="item-img"><img src="{{ URL::asset('/assets/img/logo.png') }}" class="avatar" alt=""></span></a> -->
                             </div>
                         </div>  
                         <div class="service-content">
                             <h3 class="title">
-                                <a href="{{ url('service-details') }}">{{ $service->service_title }}</a>
+                                <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">{{ $service->service_title }}</a>
                             </h3>
                             <p><i class="feather-map-pin"></i>Digital Market, UAE<span class="rate"><i class="fas fa-star filled"></i>4.9</span></p>
                             <div class="serv-info">
                                 <h6>AED {{ $service->service_price }}<span class="old-price">AED {{ $service->service_previous_price }}</span></h6>
-                                <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
+                                <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}" class="btn btn-book">Book Now</a>
                             </div>
                         </div>
                     </div>
@@ -263,126 +263,7 @@
                         
                @endforeach
 
-                        <!-- <div class="service-widget aos" data-aos="fade-up">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-01.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Cleaning</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/logo.png') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Electric Panel Repairing Service</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>New Jersey, USA<span class="rate"><i
-                                            class="fas fa-star filled"></i>4.9</span></p>
-                                <div class="serv-info">
-                                    <h6>$25.00<span class="old-price">$35.00</span></h6>
-                                    <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="service-widget aos" data-aos="fade-up">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-02.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Construction</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-02.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Toughened Glass Fitting Services</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Montana, USA<span class="rate"><i
-                                            class="fas fa-star filled"></i>4.9</span></p>
-                                <div class="serv-info">
-                                    <h6>$45.00</h6>
-                                    <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-widget aos" data-aos="fade-up">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-03.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Carpentry</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-03.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Wooden Carpentry Work</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Montana, USA<span class="rate"><i
-                                            class="fas fa-star filled"></i>4.9</span></p>
-                                <div class="serv-info">
-                                    <h6>$15.00</h6>
-                                    <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-widget aos" data-aos="fade-up">
-                            <div class="service-img">
-                                <a href="{{ url('service-details') }}">
-                                    <img class="img-fluid serv-img" alt="Service Image"
-                                        src="{{ URL::asset('/assets/img/services/service-11.jpg') }}">
-                                </a>
-                                <div class="fav-item">
-                                    <a href="{{ url('categories') }}"><span class="item-cat">Construction</span></a>
-                                    <a href="javascript:void(0)" class="fav-icon">
-                                        <i class="feather-heart"></i>
-                                    </a>
-                                </div>
-                                <div class="item-info">
-                                    <a href="{{ url('providers') }}"><span class="item-img"><img
-                                                src="{{ URL::asset('/assets/img/profiles/avatar-04.jpg') }}"
-                                                class="avatar" alt=""></span></a>
-                                </div>
-                            </div>
-                            <div class="service-content">
-                                <h3 class="title">
-                                    <a href="{{ url('service-details') }}">Plumbing Services</a>
-                                </h3>
-                                <p><i class="feather-map-pin"></i>Georgia, USA<span class="rate"><i
-                                            class="fas fa-star filled"></i>4.9</span></p>
-                                <div class="serv-info">
-                                    <h6>$45.00</h6>
-                                    <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
-                                </div>
-                            </div>
-                        </div> -->
+                     
 
                     </div>
                 </div>
@@ -625,16 +506,20 @@
 
         @foreach($services as $service)
 
-                    @php
+            @if($service->service_isPopular == 1) 
+
+                     @php
                         $selectedImagesArray = json_decode($service->selected_images);
                     @endphp
 
+                    @php
+                        $category = $categories->where('id', $service->service_category)->first();
+                    @endphp
 
-            @if($service->service_isPopular == 1) 
 
                 <div class="service-widget aos" data-aos="fade-up">
                     <div class="service-img">
-                        <a href="{{ url('service-details') }}">
+                        <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">
                             @if(isset($selectedImagesArray) && is_array($selectedImagesArray) && count($selectedImagesArray) > 0)
                                 <img src="{{ asset('uploads/services/' . $selectedImagesArray[0]) }}" alt="Service Image">
                             @else
@@ -642,23 +527,23 @@
                             @endif
                         </a>
                         <div class="fav-item">
-                            <a href="{{ url('categories') }}"><span class="item-cat">{{ $category->category_name }}</span></a>
+                            <a href="{{ route('index-categories', ['slug' => $category->category_slug]) }}"><span class="item-cat">{{ $category->category_name }}</span></a>
                             <a href="javascript:void(0)" class="fav-icon">
                                 <i class="feather-heart"></i>
                             </a>
                         </div>
                         <div class="item-info">
-                            <a href="{{ url('providers') }}"><span class="item-img"><img src="{{ URL::asset('/assets/img/logo.png') }}" class="avatar" alt=""></span></a>
+                            <!-- <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}"><span class="item-img"><img src="{{ URL::asset('/assets/img/logo.png') }}" class="avatar" alt=""></span></a> -->
                         </div>
                     </div>
                     <div class="service-content">
                         <h3 class="title">
-                            <a href="{{ url('service-details') }}">{{ $service->service_title }}</a>
+                            <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">{{ $service->service_title }}</a>
                         </h3>
                         <p><i class="feather-map-pin"></i>Digital Market, UAE<span class="rate"><i class="fas fa-star filled"></i>4.9</span></p>
                         <div class="serv-info">
                             <h6>AED {{ $service->service_price }}<span class="old-price">AED {{ $service->service_previous_price }}</span></h6>
-                            <a href="{{ url('service-details') }}" class="btn btn-book">Book Now</a>
+                            <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}" class="btn btn-book">Book Now</a>
                         </div>
                     </div>
                 </div>

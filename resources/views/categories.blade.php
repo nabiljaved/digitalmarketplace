@@ -18,178 +18,40 @@
         <div class="container">
             <div class="row">
 
+               
+
                 <!-- Category List -->
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-06.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-01.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Computer</a></h6>
+                @foreach ($services as $service)
+
+                @php
+                    $selectedImagesArray = json_decode($service->selected_images);
+                @endphp
+
+               
+                    <div class="col-md-6 col-lg-4 d-flex" >
+                        <div class="category-card flex-fill">
+                            <div class="category-img">
+                                <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">
+                                    <img src="{{ asset('uploads/services/' . $selectedImagesArray[0]) }}" class="img-fluid" alt="">
+                                </a>
                             </div>
-                            <p>22 Services</p>
+                            <div class="category-info">
+                                <div class="category-name">
+                                    <span class="category-icon">
+                                        <img src="{{ URL::asset('/assets/img/logo.png') }}" alt="" style="max-height:1rem">
+                                    </span>
+                                    <h6><a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">{{ $service->service_title }}</a></h6>
+                                </div>
+                            </div>
+                            <div style="display:flex; justify-content:center; margin-bottom:8px">
+                            <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}" class="btn btn-primary">Book Now</a>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-09.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-02.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Cleaning</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-01.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-03.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Electrical</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-10.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-04.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Construction</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-15.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-05.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Interior</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-08.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-06.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Car Wash</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-11.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-07.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Plumbing</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-03.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-08.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Carpentry</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="category-card flex-fill">
-                        <div class="category-img">
-                            <a href="{{ url('search') }}">
-                                <img src="{{ URL::asset('/assets/img/services/service-16.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </a>
-                        </div>
-                        <div class="category-info">
-                            <div class="category-name">
-                                <span class="category-icon">
-                                    <img src="{{ URL::asset('/assets/img/icons/category-09.svg') }}" alt="">
-                                </span>
-                                <h6><a href="{{ url('search') }}">Appliance</a></h6>
-                            </div>
-                            <p>22 Services</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
+              
                 <!-- /Category List -->
 
             </div>

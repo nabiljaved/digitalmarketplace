@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ServiceController extends Controller
@@ -64,7 +66,7 @@ class ServiceController extends Controller
             foreach($request->file('images') as $key => $file)
             {
                 $fileName = time().rand(1,99).'.'.$file->extension();  
-                $file->move(public_path('uploads/service'), $fileName);
+                $file->move(public_path('uploads/services'), $fileName);
                 $selectedImages[] = $fileName;
             }
         }
@@ -189,7 +191,7 @@ class ServiceController extends Controller
 
 
 
-        $folderPath = public_path('uploads/services/');
+        $folderPath = public_path('uploads/services');
         $strippedImages = $request->input('stripped_images');
         // return response()->json($strippedImages);
 
@@ -199,7 +201,7 @@ class ServiceController extends Controller
             if ($request->file('images')) {
                 $deletedImagesCount = 0;
                 foreach ($strippedImages as $imageFilename) {
-                    $imagePath = $folderPath . $imageFilename;
+                    $imagePath = $folderPath . DIRECTORY_SEPARATOR . $imageFilename;
                     if (File::exists($imagePath)) {
                         if (File::delete($imagePath)) {
                             $deletedImagesCount++;
@@ -247,6 +249,44 @@ class ServiceController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e]);
         }
+    }
+
+    public function serviceDetail($slug){
+
+
+
+     // Step 1: Retrieve the current service from the database using the slug
+     $service = Service::where('service_slug', $slug)->first();
+
+     //passing categories 
+     $categories = Category::all();
+
+     // Step 2: Retrieve all other services except the current one
+     $otherServices = Service::where('service_slug', '!=', $slug)->get();
+    //  return response()->json(['others' =>$otherServices]);
+
+ 
+     // Step 3: Convert the JSON string to an array for the selected images
+     $selectedImagesArray = json_decode($service->selected_images);
+     $selectedImagesArrayAfterFirst = array_slice($selectedImagesArray, 1);
+ 
+     // Step 4: Pass the service data and other services to the view
+     return view('service-details', compact('service', 'selectedImagesArray', 'selectedImagesArrayAfterFirst', 'otherServices','categories'));
+
+    }
+
+    public function serviceByCategory($slug){
+        $category = DB::table('categories')->where('category_slug', $slug)->first();
+
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+    
+        $services = DB::table('services')
+            ->where('service_category', $category->id)
+            ->get();
+    
+        return view('categories', ['services'=>$services]);
     }
     
 }

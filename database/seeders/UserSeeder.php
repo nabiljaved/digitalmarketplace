@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Farooq',
-            'email' => 'farooq@gmail.com',
+            'email' => 'farooq@oracle.com',
             'phone' => '0504830684',
             'password' => Hash::make('12345678'),
             'type' => 'admin',
@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
 
         // Create a provider user
         User::create([
-            'name' => 'oracle',
-            'email' => 'orale@gmail.com',
+            'name' => 'Amir',
+            'email' => 'amir@oracle.com',
             'phone' => '0504830685',
             'password' => Hash::make('12345678'),
             'type' => 'provider',
@@ -33,8 +33,8 @@ class UserSeeder extends Seeder
 
         // Create two regular users
         User::create([
-            'name' => 'nabeel',
-            'email' => 'nabeel@gmail.com',
+            'name' => 'Nabeel',
+            'email' => 'nabeel@oracle.com',
             'phone' => '0504830686',
             'password' => Hash::make('12345678'),
             'type' => 'user',

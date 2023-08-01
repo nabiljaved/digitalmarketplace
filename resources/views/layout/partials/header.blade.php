@@ -386,7 +386,6 @@
 
                     <li >
                         <a href="{{url('admin/index_admin')}}">Admin Dashboard</i></a>
-                      
                     </li>
 
 
@@ -400,6 +399,7 @@
                     <li class="login-link">
                         <a href="{{url('choose-signup')}}">Register</a>
                     </li>
+
                     <li class="login-link">
                         <a href="{{url('login')}}">Login</a>
                     </li>
@@ -419,10 +419,16 @@
                     <a class="nav-link header-login" href="{{url('login')}}"><i class="fa-regular fa-circle-user me-2"></i>Login</a>
                 </li>
             @endguest
-                @auth
-                 <li class="nav-item">
-                 <a class="nav-link header-login" href="{{ route('log-out') }}"><i class="fa-regular fa-circle-user me-2"></i>Log out</a>
-                </li>                   
+                @auth         
+                
+            <li class="nav-item">   
+                 <a href="#">Welcome {{ Auth::user()->name }} !</a>
+             </li>  
+
+             <li class="nav-item">
+                    <a class="nav-link header-login" href="{{ route('log-out') }}"><i class="fa-regular fa-circle-user me-2"></i>Log out</a>
+                </li>  
+
                 @endauth
             </ul>
             @endif

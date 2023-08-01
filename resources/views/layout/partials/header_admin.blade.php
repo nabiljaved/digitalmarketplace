@@ -2,11 +2,9 @@
 <div class="header">
     <div class="header-left">
         <a href="{{ url('admin/index_admin') }}" class="logo">
-            <img src="{{ URL::asset('/admin_assets/img/logo.svg') }}" alt="Logo" width="30" height="30">
-        </a>
+        <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/img/stand.png')}}"></a>
         <a href="{{ url('admin/index_admin') }}" class=" logo-small">
-            <img src="{{ URL::asset('/admin_assets/img/logo-small.svg') }}" alt="Logo" width="30"
-                height="30">
+            <img src="{{ asset('assets/img/stand.png') }}" alt="Logo" width="30" height="30">
         </a>
     </div>
     <a class="mobile_btn" id="mobile_btn" href="javascript:void(0);">

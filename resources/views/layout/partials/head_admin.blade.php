@@ -3,7 +3,8 @@
 <title>Digital Market Place</title>
 
 <!-- Favicons -->
-<link rel="shortcut icon" href="{{ url('admin_assets/img/favicon.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{url('assets/img/stand.png')}}"></a>
+
 
 <!-- Select 2 -->
 <link rel="stylesheet" href="{{ url('/admin_assets/css/select2.min.css') }}">

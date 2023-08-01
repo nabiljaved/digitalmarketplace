@@ -2,12 +2,12 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <a href="{{ url('admin/index_admin') }}">
-                <img src="{{ URL::asset('assets/img/company/logo.png') }}" class="img-fluid logo" alt="">
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('assets/img/company/logo.png') }}" class="img-fluid logo" alt="">
             </a>
             <!-- <h6 style="color:#ffffff">Digital Market Place</h6> -->
-            <a href="{{ url('admin/index_admin') }}">
-                <img src="{{ URL::asset('/admin_assets/img/logo-small.svg') }}" class="img-fluid logo-small"
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('/admin_assets/img/logo-small.svg') }}" class="img-fluid logo-small"
                     alt="" >
             </a>
         </div>
@@ -42,6 +42,12 @@
                     <a class="{{ Request::is('admin/categories', 'admin/add-categories', 'admin/edit-categories') ? 'active' : '' }}"
                         href="{{ url('admin/categories') }}"><i class="fe fe-file-text"></i>
                         <span>Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ Request::is('admin/categories', 'admin/add-categories', 'admin/edit-categories') ? 'active' : '' }}"
+                        href="{{ url('admin/credit-payments') }}"><i class="fe fe-file-text"></i>
+                        <span>Credit Payments</span>
                     </a>
                 </li>
                 <!-- <li>

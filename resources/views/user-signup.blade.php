@@ -10,12 +10,20 @@
                             <a href="{{ url('/') }}"><img src="{{ URL::asset('/assets/img/icons/undo-icon.svg') }}"
                                     class="me-2" alt="icon">Back To Home</a>
                         </div>
+                        @if (session('warning'))
+                            <div id="flash-message" class="alert alert-warning">
+                                {{ session('warning') }}
+                            </div>
+                        @endif
+
                         <div class="login-header">
                             <h3>User Signup</h3>
                         </div>
 
                         <!-- Login Form -->
                          <!-- Signup Form -->
+
+                         
                   <form action="{{ route('user-signup') }}" method="post">
                         @csrf 
                         <input type="hidden" name="type" value="user">
@@ -31,8 +39,9 @@
                                 <div class="col-md-12">
                                     <label class="col-form-label">Phone Number</label>
                                     <div class="form-group">
+                                 
                                         <input type="text" class="form-control form-control-lg group_formcontrol"
-                                            id="phone" name="phone" placeholder="(256) 789-6253" name="phone">
+                                            id="phone" name="phone" placeholder="(971) 48 30 684" name="phone">
                                     </div>
                                 </div>
                             </div>
@@ -87,4 +96,12 @@
 
         </div>
     </div>
+    <script>
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.display = 'none';
+            }
+        }, 2000); // Change '5000' to the duration you want (in milliseconds)
+    </script>
 @endsection
