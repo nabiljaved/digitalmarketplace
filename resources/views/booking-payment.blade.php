@@ -15,41 +15,6 @@
                         <a href="{{ route('service-details', ['slug' => $serviceSlug ])  }}"><i class="feather-arrow-left"></i> Back</a>
                     </div>
 
-                    <!-- Booking Step -->
-                    <!-- <ul class="step-register row">
-                        <li class="activate col-md-4">
-                            <div class="multi-step-icon">
-                                <span><img src="{{ URL::asset('/assets/img/icons/calendar-icon.svg') }}"
-                                        alt="img"></span>
-                            </div>
-                            <div class="multi-step-info">
-                                <h6>Appointment</h6>
-                                <p>Choose time & date for the service</p>
-                            </div>
-                        </li>
-                        <li class="active col-md-4">
-                            <div class="multi-step-icon">
-                                <span><img src="{{ URL::asset('/assets/img/icons/wallet-icon.svg') }}"
-                                        alt="img"></span>
-                            </div>
-                            <div class="multi-step-info">
-                                <h6>Appointment time date</h6>
-                                <p>Select Payment Gateway</p>
-                            </div>
-                        </li>
-                        <li class="col-md-4">
-                            <div class="multi-step-icon">
-                                <span><img src="{{ URL::asset('/assets/img/icons/book-done.svg') }}" alt="img"></span>
-                            </div>
-                            <div class="multi-step-info">
-                                <h6>Done </h6>
-                                <p>Completion of Booking</p>
-                            </div>
-                        </li>
-                    </ul> -->
-                    <!-- /Booking Step -->
-
-                    <!-- Booking Payment -->
                     <div class="row">
                         <div class="col-lg-10 mx-auto">
                             <div class="row">
@@ -146,6 +111,10 @@
                                                 <input type="hidden" name="totalPrice" value="{{$service->service_price}}" id="totalprice">
                                                 <input type="hidden" name="servicetitle" value="{{$service->service_title}}" id="servicetitle">
 
+                                                <input type="hidden" name="serviceid" value="{{$service->id}}" id="serviceid">
+                                                <input type="hidden" name="servicecharge" value="" id="service-charge">
+                                                <input type="hidden" name="couponcharge" value="" id="couponcharge">
+
 
                                                 <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
 
@@ -180,11 +149,7 @@
                                             </div>
                                         </div>
                                         <div class="booking-summary">
-                                            <!-- <ul class="booking-date">
-                                                <li>Date <span>07/09/2023</span></li>
-                                                <li>Time <span>12.30 Pm - 01. 00 PM</span></li>
-                                                <li>Service Provider <span>Thomas Herzberg</span></li>
-                                            </ul> -->
+                                           
                                             <ul class="booking-date">
                                                 <li>Subtotal <span id="subtotal">AED {{$service->service_price}}</span></li>
                                                 <li class="coupon-discount">Coupoun Discount <span id="couponAmount">AED 0.00</span></li>
@@ -213,7 +178,7 @@
                                     </div>
                                   
                                     <div class="booking-pay">
-                                        <!-- ... (existing code) ... -->
+                                 
                                     </div>
                                     <div class="save-offer">
                                         <p> <span  id="couponMessage">Your total saving on this order AED 0.00</span></i> 
@@ -239,39 +204,63 @@
 <script>
 
 document.getElementById('payButton').style.display = 'none';
+let servicecharge = 3;
+let couponAmount = 10;
+
+const serviceChargeElement = document.getElementById('service-charge');
+serviceChargeElement.value = servicecharge.toFixed(2);
+console.log(serviceChargeElement.value)
+
+const totalCostElement = document.querySelector('.total-cost');
+const price = {{$service->service_price}} + servicecharge;
+totalCostElement.textContent = `AED ${price.toFixed(2)}`;
+
+
+const payButton = document.getElementById('proceed-pay');
+payButton.textContent = `Proceed to Pay AED ${price.toFixed(2) }`;
+
 
 
 function applyCoupon() {
     const couponCode = document.getElementById('couponCode').value;
 
     // Check if the coupon code is equal to "AE45GR" (case-sensitive).
-    if (couponCode === "AE") {
+    if (couponCode === "AE" && couponCode != null && couponCode.trim() != "") {
         // Assuming you have stored the original service price in a variable named 'originalPrice'.
         // Replace this with the actual variable that holds the original price.
         const originalPrice = {{$service->service_price}};
 
         // Assuming the coupon amount for "AE45GR" is 10 (you can adjust this value as needed).
-        const couponAmount = 10;
+        
+        let totalsaving = 0;
 
         // Calculate the total price after applying the coupon.
-        const totalPrice = originalPrice - couponAmount;
+        totalsaving = couponAmount
+        const totalPrice = (originalPrice - totalsaving) + servicecharge;
+        
 
-        // alert(totalPrice)
+        
 
         // Update the total cost, coupon discount, and subtotal in the HTML.
         const totalCostElement = document.querySelector('.total-cost');
         const couponAmountElement = document.getElementById('couponAmount');
         const subtotalElement = document.getElementById('subtotal');
+        const serviceChargeElement = document.getElementById('service-charge');
+
+        const serviceChargeInput = document.getElementById('servicecharge');
+        const couponChargeInput = document.getElementById('couponcharge');
 
 
-        console.log(totalCostElement.textContent, couponAmountElement.textContent, subtotalElement.textContent)
+        couponChargeInput.value = couponAmount.toFixed(2);
+
+
 
         totalCostElement.textContent = `AED ${totalPrice.toFixed(2)}`;
         couponAmountElement.textContent = `AED ${couponAmount.toFixed(2)}`;
         subtotalElement.textContent = `AED ${originalPrice.toFixed(2)}`;
 
         const payButton = document.getElementById('proceed-pay');
-        payButton.textContent = `Proceed to Pay AED ${totalPrice.toFixed(2)}`;
+        payButton.textContent = `Proceed to Pay AED ${totalPrice.toFixed(2) }`;
 
         // Disable the coupon button after applying the coupon.
         const applyButton = document.querySelector('.apply-btn');
@@ -281,8 +270,10 @@ function applyCoupon() {
        // Show the coupon applied message.
        const couponMessage = document.getElementById('couponMessage');
         couponMessage.textContent = ""; // Clear previous message
-        couponMessage.textContent = `Your total saving on this order AED ${couponAmount.toFixed(2)}`;
+        couponMessage.textContent = `Your total saving on this order AED ${totalsaving.toFixed(2)}`;
         couponMessage.style.display = 'block';
+
+     
 
         // Update the values of the hidden input fields
         document.getElementById('totalprice').value = totalPrice.toFixed(2);

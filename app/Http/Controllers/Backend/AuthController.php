@@ -131,4 +131,47 @@ class AuthController extends Controller
     
         return redirect()->route('index')->with('success','Login SuccessFull');
     }
-}
+
+    public function updateType(Request $request,$id){
+
+            $user = User::find($id);
+
+            if (!$user) {
+                // User not found, handle the error appropriately (e.g., show error message)
+            }
+
+            // Validate the form input
+            $request->validate([
+                'user_type' => 'required|in:admin,provider,user',
+            ]);
+
+            // Update the user type
+            $user->type = $request->input('user_type');
+            $user->save();
+
+            // Redirect back to the page after the update
+            return redirect()->back()->with('success', 'User type updated successfully.');
+        }
+
+
+    
+        public function deleteUser(Request $request){
+
+            $userId = $request->input('user_id');
+            $user = User::find($userId);
+
+            if (!$user) {
+                // User not found, handle the error appropriately (e.g., show error message)
+                return redirect()->back()->with('error', 'User not found.');
+            }
+
+            // Delete the user
+            $user->delete();
+
+            // Redirect back to the previous page with success message
+            return redirect()->back()->with('success', 'User has been removed from the database.');
+
+        }
+
+    }
+

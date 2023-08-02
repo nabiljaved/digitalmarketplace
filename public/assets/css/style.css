@@ -2349,7 +2349,7 @@ html.menu-opened body {
 	border: 0;
 	padding: 0;
 }
-.search-input.line::before {
+/* .search-input.line::before {
     position: absolute;
     right: 0;
     top: 50%;
@@ -2361,7 +2361,7 @@ html.menu-opened body {
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
-}
+} */
 .search-input .current-loc-icon {
     position: absolute;
     right: 15px;

@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class CreditPayment extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['name', 'address', 'phone', 'date', 'totalPrice', 'servicetitle', 'user_id'];
+    protected $fillable = [
+        'name',
+        'address',
+        'phone',
+        'date',
+        'totalPrice',
+        'servicetitle',
+        'user_id',
+        'service_charge',
+        'coupon_charge',
+        'service_id',
+    ];
 
 }

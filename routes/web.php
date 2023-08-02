@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User; // Update the namespace here
-
-
+use App\Models\User; 
+use App\Models\NewsletterEmail; 
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Backend\categoryController;
@@ -12,7 +11,7 @@ use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Models\Service;
 use App\Models\CreditPayment;
-
+use App\Http\Controllers\MailController;
 use App\Models\Backend\Category;
 
 
@@ -69,6 +68,10 @@ Route::get('/login', function () {
 ###service details 
 
 Route::get('/service-details/{slug}',[ServiceController::class, 'serviceDetail'])->name('service-details');
+
+//newsletter subscription 
+Route::post('/newsletter-confirmation',[MailController::class, 'EmailSubscription'])->name('newsletter-confirmation');
+
 
 
 Route::get('/about-us', function () {
@@ -448,17 +451,55 @@ Route::post('/edit-service/{slug}', [ServiceController::class, 'update'])->name(
         
             })->name('categories');
 
-    //get credit payment 
+    //show credit payment 
 
     Route::get('/credit-payments', function () {
 
         $payments = CreditPayment::all();
+        $services = Service::all();
         $users = User::all();
 
     
-        return view('admin.credit-payments', compact('payments', 'users'));
+        return view('admin.credit-payments', compact('payments', 'users', 'services'));
     
         })->name('credit-payments');
+
+        Route::get('/show-users', function () {
+
+    
+            $users = User::all();
+    
+        
+            return view('admin.show-users', compact('users'));
+        
+            })->name('show-users');
+
+    
+            Route::get('/show-newsletters', function () {
+
+    
+                $letters = NewsletterEmail::all();
+        
+            
+                return view('admin.show-newsletters', compact('letters'));
+            
+                })->name('show-newsletters');        
+
+
+    //delete credit payment record         
+    Route::post('/delete-credit-payment', [PaymentController::class, 'deletePayment'])->name('delete-credit-payment');
+
+    //update user type 
+    Route::post('/update-user-type/{id}', [AuthController::class, 'updateType'])->name('update-user-type');
+
+
+    //delete user 
+    Route::post('/delete-user', [AuthController::class, 'deleteUser'])->name('delete-user');
+
+    Route::post('/delete-newsletter', [MailController::class, 'deleteNewsLetter'])->name('delete-newsletter');
+
+   
+
 
     //add categories   
     Route::post('/add-categories', [categoryController::class, 'create'])->name('add-categories'); 

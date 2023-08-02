@@ -101,12 +101,15 @@
                         </div>
                         <h2 class="footer-subtitle">Newsletter Signup</h2>
                         <div class="subscribe-form">
-                            <input type="email" class="form-control" placeholder="Enter Email Address">
+                        <form action="{{ route('newsletter-confirmation') }}" method="post">
+                            @csrf
+                            <input type="email" class="form-control" name="email" placeholder="Enter Email Address">
                             <button type="submit" class="btn footer-btn">
                                 <i class="feather-send"></i>
                             </button>
-                        </div>
+                        </form>
                     </div>
+                  </div>
                     <!-- /Footer Widget -->
                 </div>
             </div>

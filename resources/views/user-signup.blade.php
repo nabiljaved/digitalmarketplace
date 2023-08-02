@@ -102,6 +102,6 @@
             if (flashMessage) {
                 flashMessage.style.display = 'none';
             }
-        }, 2000); // Change '5000' to the duration you want (in milliseconds)
+        }, 4000); // Change '5000' to the duration you want (in milliseconds)
     </script>
 @endsection

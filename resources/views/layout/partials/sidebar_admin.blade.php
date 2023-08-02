@@ -45,9 +45,21 @@
                     </a>
                 </li>
                 <li>
-                    <a class="{{ Request::is('admin/categories', 'admin/add-categories', 'admin/edit-categories') ? 'active' : '' }}"
+                    <a class="{{ Request::is('admin/credit-payments', 'admin/credit-payments', 'admin/credit-payments') ? 'active' : '' }}"
                         href="{{ url('admin/credit-payments') }}"><i class="fe fe-file-text"></i>
                         <span>Credit Payments</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ Request::is('admin/show-users', 'admin/show-users', 'admin/show-users') ? 'active' : '' }}"
+                        href="{{ url('admin/show-users') }}"><i class="fe fe-file-text"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ Request::is('admin/show-newsletters', 'admin/show-newsletters', 'admin/show-newsletters') ? 'active' : '' }}"
+                        href="{{ url('admin/show-newsletters') }}"><i class="fe fe-file-text"></i>
+                        <span>NewsLetters</span>
                     </a>
                 </li>
                 <!-- <li>

@@ -1,6 +1,26 @@
 <?php $page = 'index'; ?>
 @extends('layout.mainlayout')
 @section('content')
+
+<style>
+ 
+
+    .search-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .label-right {
+        margin-right: 20px !important;
+        white-space: nowrap; Prevent label from wrapping to a new line
+    }
+
+    .search-input .form-control {
+        flex: 1;
+    }
+    
+</style>
+
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
@@ -9,6 +29,12 @@
                @if(session('success'))
                     <div id="flash-message" class="alert alert-success">
                         {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div id="flash-message" class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
                 @endif
 
@@ -22,31 +48,36 @@
                             <h1>Professional Services For Your Digital MArketing </h1>
                             <p>Search From 100+ Awesome Services !</p>
                             <div class="search-box">
-                                <form action="search">
+                                <form action="search" onsubmit="event.preventDefault(); redirectToService();" >
                                     <div class="search-input line">
                                         <div class="search-group-icon">
-                                            <i class="feather-map-pin"></i>
+                                        <i class="feather-search"></i>
                                         </div>
-                                        <div class="form-group mb-0">
-                                            <label>Your Location</label>
-                                            <input type="text" class="form-control" placeholder="Dubai">
+                                        <div class="form-group mb-0" >
+                                            <label class="label-right">What are you looking for?</label>
+                                            <!-- <input type="text" class="form-control" placeholder="Dubai"> -->
                                         </div>
                                     </div>
-                                    <div class="search-input">
-                                        <div class="search-group-icon search-icon">
-                                            <i class="feather-search"></i>
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <label>What are you looking for?</label>
-                                            <input type="text" class="form-control" placeholder="Email Marketing">
+                                    <div class="search-input" style="display: flex; ">
+                                        <div class="form-group mb-0" style="flex: 1;margin-left:5px">
+                                            <select class="form-control" id="serviceSelect">
+                                                <option value="">Select a service</option>
+                                                @foreach ($services as $service)
+                                                    <option value="{{ route('service-details', ['slug' => $service['service_slug']]) }}">
+                                                        {{ $service['service_title'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="search-btn">
-                                        <button class="btn btn-primary" type="submit"><i
-                                                class="feather-search me-2"></i>Search</button>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="feather-search me-2"></i>Search
+                                        </button>
                                     </div>
                                 </form>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-lg-5">
@@ -82,8 +113,8 @@
                         <p>What do you need to find?</p>
                     </div>
                     <div class="col-md-6 text-md-end aos" data-aos="fade-up">
-                        <a href="{{ url('categories') }}" class="btn btn-primary btn-view">View All<i
-                                class="feather-arrow-right-circle"></i></a>
+                        <!-- <a href="{{ url('categories') }}" class="btn btn-primary btn-view">View All<i
+                                class="feather-arrow-right-circle"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -103,97 +134,7 @@
                     </a>
                 </div>
             @endforeach
-                <!-- <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-02.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Car Wash</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/feature.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-03.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Electrical</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-01.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-04.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Cleaning</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-09.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-05.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Interior</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-07.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-06.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Carpentry</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-03.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-07.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Computer</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-06.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('service-details') }}" class="feature-box aos" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <span>
-                                <img src="{{ URL::asset('/assets/img/icons/feature-icon-08.svg') }}" alt="img">
-                            </span>
-                        </div>
-                        <h5>Plumbing</h5>
-                        <div class="feature-overlay">
-                            <img src="{{ URL::asset('/assets/img/services/service-11.jpg') }}" alt="img">
-                        </div>
-                    </a>
-                </div> -->
+              
             </div>
         </div>
     </section>
@@ -230,7 +171,7 @@
                 @if($service->service_isFeatured == 1) 
                     <div class="service-widget aos" data-aos="fade-up">
                         <div class="service-img">
-                            <a href="{{ route('service-details', ['slug' => $service->service_slug ]) }}">
+                            <a href="{{ route('service-details', ['slug' => $service->service_slug]) }}">
                                 @if(isset($selectedImagesArray) && is_array($selectedImagesArray) && count($selectedImagesArray) > 0)
                                     <img src="{{ asset('uploads/services/' . $selectedImagesArray[0]) }}" alt="Service Image">
                                 @else
@@ -265,7 +206,7 @@
 
                      
 
-                    </div>
+            </div>
                 </div>
                 <div class="btn-sec aos" data-aos="fade-up">
                     <a href="{{ url('search') }}" class="btn btn-primary btn-view">View All<i
@@ -960,6 +901,21 @@
                 flashMessage.style.display = 'none';
             }
         }, 5000); // Change '5000' to the duration you want (in milliseconds)
+
+
+     
+            function redirectToService() {
+          
+                var selectElement = document.getElementById('serviceSelect');
+                var selectedOption = selectElement.options[selectElement.selectedIndex];
+                console.log(selectedOption)
+                var redirectUrl = selectedOption.value;
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            }
+
+
     </script>
     <!-- /App Section -->
     @component('components.model-popup')

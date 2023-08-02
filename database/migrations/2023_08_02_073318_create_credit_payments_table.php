@@ -20,10 +20,15 @@ return new class extends Migration
             $table->decimal('totalPrice', 8, 2);
             $table->string('servicetitle');
             $table->unsignedBigInteger('user_id');
+            $table->decimal('service_charge', 8, 2);
+            $table->decimal('coupon_charge', 8, 2)->nullable();
+            $table->unsignedBigInteger('service_id'); 
+
             $table->timestamps();
 
             // Define foreign key constraint for user_id column
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
         });
     }
 
