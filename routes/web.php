@@ -5,11 +5,13 @@ use App\Models\User;
 use App\Models\NewsletterEmail; 
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Backend\categoryController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Models\Service;
+use App\Models\Testimonial;
 use App\Models\CreditPayment;
 use App\Http\Controllers\MailController;
 use App\Models\Backend\Category;
@@ -32,6 +34,10 @@ Route::post('admin/custom-login', [CustomAuthController::class, 'customLogin'])-
 Route::get('admin/signup', [CustomAuthController::class, 'registration'])->name('admin/signup');
 Route::post('admin/custom-register', [CustomAuthController::class, 'customRegistration'])->name('signup.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+
+##process payment 
+Route::post('/process-payment', [PaymentController::class, 'processPayment']);
+
 
 ##### MAIN PAGE ####
 
@@ -75,11 +81,21 @@ Route::post('/newsletter-confirmation',[MailController::class, 'EmailSubscriptio
 
 
 Route::get('/about-us', function () {
-    return view('about-us');
+
+    $testimonials = Testimonial::all();
+
+    return view('about-us', ['testimonials'=> $testimonials]);
 })->name('about-us'); 
+
 Route::get('/contact-us', function () {
     return view('contact-us');
 })->name('contact-us');
+
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact-us');
+
+
+
+
 Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');

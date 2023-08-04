@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterConfirmEmail;
 
 
 
@@ -83,13 +84,16 @@ class AuthController extends Controller
             ]);
 
              // Log in the user programmatically after registration
+        
+        Mail::to($user->email)->send(new RegisterConfirmEmail($user->email));
+     
         Auth::login($user);
-
-            return redirect()->route('index')->with('success','registered as Customer');
+        return redirect()->route('index')->with('success','registered as Customer');
 
 
         }catch (\Exception $e) {
-            return response()->json(['error' => $e ]);
+            return response()->json(['message' => $e->getMessage()], 404);
+
         }
 
 

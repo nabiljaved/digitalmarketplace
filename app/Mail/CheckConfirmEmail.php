@@ -29,8 +29,8 @@ class CheckConfirmEmail extends Mailable
 
     public function build()
     {
-        return $this->view('check-acknowledgement')
-            ->subject('Check Collection Email')
+        return $this->view('cheque-acknowledgement')
+            ->subject('Cheque Collection Email')
             ->with([
                 'title' => $this->title,
                 'price' => $this->price,

@@ -25,32 +25,32 @@
                                 <span>12+ years of experiences</span>
                             </div>
                             <div class="abt-img">
-                                <img src="{{ URL::asset('/assets/img/about-01.jpg') }}" class="img-fluid" alt="img">
+                                <img src="{{asset('/assets/company/digitalmarket.png') }}" class="img-fluid" alt="img">
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="about-content">
                             <h6>ABOUT OUR COMPANY</h6>
-                            <h2>Best Solution For Cleaning Services</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Ut enim minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                architecto beatae vitae dicta sunt explicabo.</p>
+                            <h2>Best place for Digital Market</h2>
+                            <p>Welcome to Digital Market Place, your one-stop destination for high-quality digital marketing services. 
+                                We are dedicated to helping businesses and individuals achieve their online marketing goals with innovative and 
+                                effective strategies. Our team of experts is committed to providing exceptional services tailored to your unique needs.</p>
+                            <p><h3>Expertise:</h3><br> 
+                                Our skilled team comprises experienced professionals who stay 
+                                ahead of the latest industry trends, ensuring that your digital 
+                                marketing campaigns are cutting-edge and successful.</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>At vero et accusamus iusto dignissimos</li>
-                                        <li>At vero et accusamus iusto dignissimos</li>
+                                        <li>We understand that each business is different. </li>
+                                        <li>Our primary focus is on delivering tangible results. </li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>Nam libero tempore, cum soluta nobis</li>
-                                        <li>Nam libero tempore, cum soluta nobis</li>
+                                        <li>We believe in open communication and complete transparency. </li>
+                                        <li>stay ahead of the latest industry trends .</li>
                                     </ul>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                     <div class="col-md-12 text-center">
                         <div class="section-heading">
                             <h2>How It Works</h2>
-                            <p>Aliquam lorem ante, dapibus in, viverra quis</p>
+                            <p>Embark on a journey of possibilities and make your dreams a reality.</p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                 </span>
                             </div>
                             <h5>Choose What To Do</h5>
-                            <p>Lorem ipsum dolor amet, consectetur adipiscing tempor labore et dolore magna aliqua.</p>
+                            <p>Discover the perfect match for your desires and aspirations.</p>
                             <h4>01</h4>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 </span>
                             </div>
                             <h5>Find What You Want</h5>
-                            <p>Lorem ipsum dolor amet, consectetur adipiscing tempor labore et dolore magna aliqua.</p>
+                            <p>Discover the perfect match for your desires and aspirations.</p>
                             <h4>02</h4>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                                 </span>
                             </div>
                             <h5>Amazing Places</h5>
-                            <p>Lorem ipsum dolor amet, consectetur adipiscing tempor labore et dolore magna aliqua.</p>
+                            <p>Uncover breathtaking destinations that will leave you in awe.</p>
                             <h4>03</h4>
                         </div>
                     </div>
@@ -121,16 +121,14 @@
                     <div class="col-md-6">
                         <div class="choose-content">
                             <h2>Why Choose Us</h2>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus</p>
+                            <p>With us, you can be confident in making the right choice for your digital marketing success. Experience the difference and elevate your online presence today!</p>
                             <div class="support-card">
                                 <h4 class="support-title">
                                     <a class="collapsed" data-bs-toggle="collapse" href="#aboutone"
                                         aria-expanded="false">24/7 Supports</a>
                                 </h4>
                                 <div id="aboutone" class="card-collapse collapse">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                        architecto beatae vitae dicta sunt explicabo.</p>
+                                    <p>Our dedicated team is available round-the-clock to assist you, ensuring seamless communication and timely solutions for all your queries and concerns.</p>
                                 </div>
                             </div>
                             <div class="support-card">
@@ -139,9 +137,7 @@
                                         aria-expanded="false">Client’s reviews</a>
                                 </h4>
                                 <div id="abouttwo" class="card-collapse collapse">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                        architecto beatae vitae dicta sunt explicabo.</p>
+                                    <p>Our experienced and skilled professionals bring a wealth of expertise to the table, crafting tailored strategies to meet your unique needs and achieve remarkable outcomes.</p>
                                 </div>
                             </div>
                             <div class="support-card">
@@ -150,9 +146,7 @@
                                         aria-expanded="false">Professional Team</a>
                                 </h4>
                                 <div id="about3" class="card-collapse collapse">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                        architecto beatae vitae dicta sunt explicabo.</p>
+                                    <p>We take pride in offering the best-in-class services that align with the latest industry practices, ensuring that your business stays ahead of the competition and achieves sustainable growth.</p>
                                 </div>
                             </div>
                             <div class="support-card">
@@ -170,7 +164,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="chooseus-img">
-                            <img src="{{ URL::asset('/assets/img/about-02.png') }}" class="img-fluid" alt="img">
+                            <img src="{{ URL::asset('/assets/img/marketing-services.jpeg') }}" class="img-fluid" alt="img" style="height:100%">
                         </div>
                     </div>
                 </div>
@@ -221,7 +215,7 @@
         <!-- /Choose Us Section -->
 
         <!-- Providers Section -->
-        <section class="providers-section abt-provider">
+        <!-- <section class="providers-section abt-provider">
             <div class="container">
                 <div class="section-heading">
                     <div class="row">
@@ -358,7 +352,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- /Providers Section -->
 
         <!-- Client Section -->
@@ -368,7 +362,8 @@
                     <div class="col-md-12 text-center">
                         <div class="section-heading">
                             <h2>What our client says</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur elit</p>
+                            <p>"Digital Market Place has been an invaluable partner for our business. Their strategic approach to digital marketing has 
+                                significantly increased our online visibility and brought us a steady flow of leads. </p>
                         </div>
                     </div>
                 </div>
@@ -376,72 +371,29 @@
                     <div class="col-md-12">
                         <div class="owl-carousel testimonial-slider">
 
-                            <div class="client-widget">
-                                <div class="client-img">
-                                    <a href="javascript:;">
-                                        <img class="img-fluid" alt="Image"
-                                            src="{{ URL::asset('/assets/img/profiles/avatar-01.jpg') }}">
-                                    </a>
-                                </div>
-                                <div class="client-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi </p>
-                                    <h5>Mike Hussy</h5>
-                                    <h6>Director</h6>
-                                </div>
-                            </div>
-                            <div class="client-widget">
-                                <div class="client-img">
-                                    <a href="javascript:;">
-                                        <img class="img-fluid" alt="Image"
-                                            src="{{ URL::asset('/assets/img/profiles/avatar-02.jpg') }}">
-                                    </a>
-                                </div>
-                                <div class="client-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi </p>
-                                    <h5>Mike Hussy</h5>
-                                    <h6>Director</h6>
-                                </div>
-                            </div>
-                            <div class="client-widget">
-                                <div class="client-img">
-                                    <a href="javascript:;">
-                                        <img class="img-fluid" alt="Image"
-                                            src="{{ URL::asset('/assets/img/profiles/avatar-03.jpg') }}">
-                                    </a>
-                                </div>
-                                <div class="client-content">
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi </p>
-                                    <h5>Mike Hussy</h5>
-                                    <h6>Director</h6>
-                                </div>
-                            </div>
+                        @foreach ($testimonials as $testimonial)
+<div class="client-widget">
+    <div class="client-img">
+        <a href="javascript:;">
+            <img class="img-fluid" alt="Image" src="{{ asset('uploads/testimonial/' . $testimonial->imgurl) }}">
+        </a>
+    </div>
+    <div class="client-content">
+        <div class="rating">
+            <i class="fas fa-star filled"></i>
+            <i class="fas fa-star filled"></i>
+            <i class="fas fa-star filled"></i>
+            <i class="fas fa-star filled"></i>
+            <i class="fas fa-star filled"></i>
+        </div>
+        <p>{{ $testimonial['testimony'] }}</p>
+        <h5>{{ $testimonial['name'] }}</h5>
+        <h6>{{ $testimonial['designation'] }}</h6>
+    </div>
+</div>
+@endforeach
+
+                           
 
                         </div>
                     </div>
@@ -456,15 +408,16 @@
                 <div class="col-md-12">
                     <div class="offer-paths about-offer">
                         <div class="offer-path-content">
-                            <h3>Looking for the Best Service Finder & Bookings</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore architecto beatae vitae
-                                dicta sunt explicabo.</p>
+                            <h3>Looking for the Best Digital Marketing Service</h3>
+                            <p>Welcome to the world of possibilities with our Best Digital Marketing Service! We take 
+                                pride in being a trailblazer in the 
+                                realm of digital marketing, providing you with unparalleled solutions to elevate 
+                                your online presence and boost your business growth.</p>
                             <a href="{{ url('service-grid') }}" class="btn btn-primary btn-views">Get Started<i
                                     class="feather-arrow-right-circle"></i></a>
                         </div>
                         <div class="offer-pathimg">
-                            <img src="{{ URL::asset('/assets/img/service-img.png') }}" alt="img">
+                            <img src="{{ URL::asset('/assets/img/offer-path.png') }}" alt="img">
                         </div>
                     </div>
                 </div>

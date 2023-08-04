@@ -9,6 +9,12 @@ use App\Models\CreditPayment;
 use App\Mail\CheckConfirmEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Stripe\Customer;
+use App\Models\CardPayment;
+
+
 
 
 
@@ -89,16 +95,18 @@ class PaymentController extends Controller
     if ($saved) {
         try {
             Mail::to($email)->send(new CheckConfirmEmail($servicetitle, $totalPrice, $servicecharge, $couponcharge, $email));
+
             return redirect()->route('index')->with('success', 'Thank you! We will contact you soon for check collection!');
+
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error sending email: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to submit the form. Please try again.');
+            return response()->json(['message' => $e->getMessage()], 404);
         }
     } else {
         // There was an error saving the form data
         // You can perform error handling or display an error message here
-        return redirect()->back()->with('error', 'Failed to submit the form. Please try again.');
+        return response()->json(['message' => $e->getMessage()], 404);
     }
 
 
@@ -124,6 +132,130 @@ class PaymentController extends Controller
 
 
     }
+
+    //Dirham Conversion 
+
+ 
+
+
+    public function processPayment(Request $request)
+    {
+
+                function convertToCents($amount, $currency)
+        {
+            // Check if the currency is AED
+            if (strtolower($currency) === 'aed') {
+                // Convert the amount to cents and return it
+                return (int) round($amount * 100);
+            } else {
+                // If the currency is not AED, return the original amount
+                return (int) round($amount);
+            }
+        }
+
+        // Retrieve user information
+        $user = Auth::user();
+        $userid = $user->id;
+        $username = $user->name;
+        $useremail = $user->email;
+        $userphone = $user->phone;
+    
+        // Retrieve payment data from the request
+        $requestData = $request->all();
+        $paymentMethodId = $requestData['payment_method_id'];
+        $serviceTitle = $requestData['servicetitle'];
+        $totalPrice = $requestData['totalPrice'];
+        $couponcharge =  $requestData['couponcharge'];
+        $servicecharge =  $requestData['servicecharge'];
+        $serviceId = $requestData['serviceid'];
+
+        // return response()->json($requestData);
+
+    
+        // Convert total price to cents if the currency is AED
+        $currency = 'aed';
+        $amountInCents = convertToCents((float)$totalPrice, $currency);
+        $amountInCents += convertToCents((float)$servicecharge, $currency);
+
+          // Add coupon charge if not null or 0
+        if ($couponcharge !== null && (float)$couponcharge !== 0) {
+            $amountInCents += convertToCents((float)$couponcharge, $currency);
+        }
+
+    
+        Stripe::setApiKey(config('services.stripe.secret'));
+    
+        try {
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                'amount' => $amountInCents,
+                'currency' => $currency,
+                'payment_method' => $paymentMethodId,
+                'confirm' => true,
+                'metadata' => [
+                    'userid' => $userid,
+                    'user_namne' => $user->name,
+                    'user_email' => $user->email,
+                    'phone_no' => $user->phone,
+                   'service_title' => $serviceTitle,
+                ],
+            ]);
+
+                    // Save the payment data to the database
+            $cardPayment = CardPayment::create([
+                'status' => 'success', // You can get this from the payment response
+                'message' => 'Payment successful', // You can get this from the payment response
+                'payment_id' => $paymentIntent->id,
+                'userid' => $userid,
+                'service_id' => $serviceId, // Replace this with the actual service ID if available
+                'amount_captured' => $paymentIntent->amount,
+                'service_charge' => $servicecharge,
+                'coupon_charge' => $couponcharge,
+                'payment_method' => $paymentIntent->charges->data[0]->payment_method_details->card->network,
+                'card_brand' => $paymentIntent->charges->data[0]->payment_method_details->card->brand,
+                'card_country' => $paymentIntent->charges->data[0]->payment_method_details->card->country,
+                'currency' => $paymentIntent->currency,
+            ]);
+    
+            return redirect()->route('index')->with('success', 'Thank you for making Digital Transaction');
+
+
+        } catch (\Stripe\Exception\CardException $e) {
+            // Handle card-related errors
+            return redirect()->route('index')->with('error',  $e->getMessage());
+        } catch (\Exception $e) {
+            // Handle other errors
+            return redirect()->route('index')->with('error',  $e->getMessage());
+        }
+    }
+    
+    function convertToCents($amount, $currency)
+    {
+        // Check if the currency is AED
+        if (strtolower($currency) === 'aed') {
+            // Convert the amount to cents and return it
+            return (int) round($amount * 100);
+        } else {
+            // If the currency is not AED, return the original amount
+            return (int) round($amount);
+        }
+    }
+    
+    public function stripePost(Request $request)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    
+        Stripe\Charge::create ([
+                "amount" => 100 * 100,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => "Test payment from itsolutionstuff.com." 
+        ]);
+      
+        Session::flash('success', 'Payment successful!');
+              
+        return back();
+    }
+
 
 
    

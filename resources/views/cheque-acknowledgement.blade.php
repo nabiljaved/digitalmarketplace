@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Newsletter Subscription Confirmation</title>
+    <title>Cheque Collection</title>
     <style type="text/css">
         /* Basic styling */
         body {
@@ -76,10 +76,10 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{ $message->embed(public_path('uploads/company/logo.png')) }}" alt="Your Company Logo" />
+    <img src="{{ $message->embed(public_path('uploads/company/digitalmarket.png')) }}" alt="Your Company Logo" />
     </div>
 
-    <h1>Check Collection Confirmation</h1>
+    <h1>Cheque Collection Confirmation</h1>
 
         @php
           // Calculate the total amount
@@ -88,8 +88,10 @@
 
     <div class="message">
         <p>Dear {{ $email }},</p>
-        <p>Thank you for subscribing to our newsletter! You will now receive regular updates on the latest news, promotions, and events from us.</p>
-        <p>We appreciate your interest in our company and look forward to staying in touch with you.</p>
+        <p>Thank you for purchasing our Digital Market Service! We are thrilled to have you onboard and are committed to delivering exceptional results for your business.</p>
+        <p>As a valued customer, you can expect top-notch digital marketing strategies that will enhance your online presence and drive significant growth. Our team of experts is dedicated to providing you with the best services and ensuring that your business reaches new heights.</p>
+        <br>
+        <p>We appreciate your interest in our company and look forward to Connect with you.</p>
        
         <h2>Your Order Details:</h2>
         <table>
@@ -118,13 +120,13 @@
         </table>
 
         <p>Best regards,</p>
-        <p>Sincerely,<br>Oracle Digital Marketing<br>
+        <p>Sincerely,<br>Digital Market Place<br>
             Al Mamzar Centre, Office no. 2, Abu Hail<br>
             Dubai, United Arab Emirates<br>
             Phone: 055 101 6476<br>
         </p>
 
-        <p>Thank you very much for choosing Oracle Digital Marketing. We appreciate your patience.</p>
+        <p>Thank you very much for choosing Digital Market Place. We appreciate your patience.</p>
     </div>
 </body>
 </html>

@@ -1,8 +1,65 @@
 <?php $page = 'booking-payment'; ?>
+
+
 @extends('layout.mainlayout')
 @section('content')
-    @component('components.backgroundimage')
-    @endcomponent
+@component('components.backgroundimage')
+@endcomponent
+
+<style>
+    /* Customize the card element container */
+#card-element {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  margin-bottom:20px;
+}
+
+/* Style the Stripe card element */
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  transition: box-shadow 150ms ease;
+  font-family: 'Source Code Pro', monospace;
+
+  /* Adjust the font and text properties */
+  font-size: 16px;
+  font-weight: 400;
+  color: #444;
+  letter-spacing: 0.025em;
+
+  /* Make the card element input responsive */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Style the Stripe card element on focus */
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+/* Style the Stripe card element on invalid input */
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+/* Style the error message for invalid input */
+.StripeElement--webkit-autofill, .StripeElement--webkit-autofill:focus, .StripeElement--webkit-autofill:hover {
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+</style>
 
     <div class="content book-content">
         <div class="container">
@@ -28,7 +85,7 @@
                                                 <input type="radio" name="payment" class="card-payment" value="check" onclick="updatePaymentOption()">
                                                 <span class="checkmark"></span>
                                             </label>
-                                            <h6>Check Payment</h6>
+                                            <h6>Cheque Payment</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -46,39 +103,63 @@
 
                                     <div class="payment-list" style="display:none">
                                         <div class="row align-items-center">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
+                                        <div class="col-md-12">
+                                    <form method="POST" action="{{ url('/process-payment') }}"  id="paymentForm">
+
+                                     <div class="form-group">
+                                         <h6>Please Enter Card Details</h6>
+                                    </div>
+                                    
+
+                                    <div id="card-element"></div>
+
+                                            @csrf
+                                               <!-- <div class="form-group">
                                                     <label class="col-form-label">Name on Card</label>
-                                                    <input class="form-control" type="text"
-                                                        placeholder="Enter Name on Card">
-                                                </div>
+                                                    <input class="form-control" type="text" placeholder="Enter Name on Card" name="name_on_card" id="name_on_card">
+                                                </div> -->
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
+                                            <!-- <div class="col-md-8">
+                                            <div class="form-group">
                                                     <label class="col-form-label">Card Number</label>
-                                                    <input class="form-control" placeholder="**** **** **** ****"
-                                                        type="text">
+                                                    <input class="form-control" placeholder="**** **** **** ****" type="text" name="card_number" id="card_number">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4 text-end">
+                                            </div> -->
+                                            <!-- <div class="col-md-4 text-end">
                                                 <div class="form-group">
                                                     <label class="col-form-label">&nbsp;</label>
                                                     <img src="{{ URL::asset('/assets/img/payment-card.png') }}"
                                                         class="img-fluid" alt="">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
+                                            </div> -->
+                                            <!-- <div class="col-md-6">
+                                            <div class="form-group">
                                                     <label class="col-form-label">Expiration date</label>
-                                                    <input class="form-control" placeholder="MM/YY" type="text">
+                                                    <input class="form-control" placeholder="MM/YY" type="text" name="expiration_date" id="expiration_date">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
+                                            </div> -->
+                                            <!-- <div class="col-md-6">
+                                            <div class="form-group">
                                                     <label class="col-form-label">Security code</label>
-                                                    <input class="form-control" placeholder="CVV" type="text">
+                                                    <input class="form-control" placeholder="CVV" type="text" name="security_code" id="security_code">
                                                 </div>
+                                            </div> -->
+                                            <input type="hidden" name="payment_method_id" id="payment_method_id">
+
+                                            
+                                            <input type="hidden" name="totalPrice" value="{{$service->service_price}}" id="totalprice">
+                                                <input type="hidden" name="servicetitle" value="{{$service->service_title}}" id="servicetitle">
+
+                                                <input type="hidden" name="serviceid" value="{{$service->id}}" id="serviceid">
+                                                <input type="hidden" name="servicecharge" value="" id="service-charge">
+                                                <input type="hidden" name="couponcharge" value="" id="couponcharge">
+
+                                            <div class="booking-pay" id="payButton">
+                                                <button type="submit" class="btn btn-primary btn-pay w-100">
+                                                    <span id="proceed-pay">Proceed to Pay {{$service->service_price}}</span>
+                                                </button>
                                             </div>
+                                        </form>
                                         </div>
                                     </div>
 
@@ -184,10 +265,9 @@
                                         <p> <span  id="couponMessage">Your total saving on this order AED 0.00</span></i> 
                                         </p>
                                     </div>
-                                    <div class="booking-pay" id="payButton">
-                                        <a href="{{ url('booking-done') }}" class="btn btn-primary btn-pay w-100"><span id="proceed-pay">Proceed to Pay {{$service->service_price}}</span></a>
-                                       
-                                    </div>
+                                    <!-- <button type="submit" class="btn btn-primary btn-pay w-100"  id="payButton2">
+                                        <span id="proceed-pay">Proceed to Pay AED 503.00</span>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -200,9 +280,47 @@
             </div>
         </div>
     </div>
+    <script src="https://js.stripe.com/v3/"></script>
 
 <script>
 
+
+    let stripe = Stripe('pk_test_51JIbn2LzOAF9d8yr92z9bueK0DPrIBQgNxr3keTCsKPN9qzEl4snuEQl3cuDjstoPJaOi9omXXiQoAuno7xLgCVg009qLYg7Rh');
+
+    let elements = stripe.elements();
+    let cardElement = elements.create('card');
+
+    console.log(cardElement);
+
+
+    cardElement.mount('#card-element');
+
+// Handle form submission
+var form = document.getElementById('paymentForm');
+
+form.addEventListener('submit', function(e){
+
+    e.preventDefault();
+            
+    stripe
+        .createPaymentMethod({
+          type: "card",
+          card: cardElement,
+        })
+        .then(function (result) {
+          if (result.error) {
+            // Display error to the user if payment method creation failed
+            alert(result.error.message);
+          } else {
+            console.log(result);
+            document.getElementById("payment_method_id").value =
+            result.paymentMethod.id;
+             form.submit();
+          }
+      });
+
+})
+  
 document.getElementById('payButton').style.display = 'none';
 let servicecharge = 3;
 let couponAmount = 10;
@@ -311,6 +429,8 @@ document.getElementById('payButton').style.display = 'none';
 // Call the function to set the initial payment option and button visibility
 updatePaymentOption();
 
+
+ 
 
 </script>
 

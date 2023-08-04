@@ -45,7 +45,7 @@
                 <div class="row align-items-center w-100">
                     <div class="col-lg-7 col-md-10 mx-auto">
                         <div class="section-search aos" data-aos="fade-up">
-                            <h1>Professional Services For Your Digital MArketing </h1>
+                            <h1>Professional Services For Your Digital Marketing </h1>
                             <p>Search From 100+ Awesome Services !</p>
                             <div class="search-box">
                                 <form action="search" onsubmit="event.preventDefault(); redirectToService();" >

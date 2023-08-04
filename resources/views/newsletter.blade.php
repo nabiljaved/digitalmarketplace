@@ -60,7 +60,7 @@
   </head>
   <body>
     <div class="header">
-      <img src="{{ $message->embed(public_path('uploads/company/logo.png')) }}" alt="Your Company Logo" />
+       <img src="{{ $message->embed(public_path('uploads/company/digitalmarket.png')) }}" alt="Your Company Logo" />
     </div>
 
     <h1>Newsletter Subscription Confirmation</h1>
@@ -71,7 +71,7 @@
       <p>We appreciate your interest in our company and look forward to staying in touch with you.</p>
       <p>Best regards,</p>
       <p>Sincerely,
-      <br>Oracle Digital Marketing<br>
+      <br>Digital Market Place<br>
        Al Mamzar Centre, Office no. 2, Abu Hail<br>
        Dubai, United Arab Emirates<br>
        Phone : 055 101 6476<br>

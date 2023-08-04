@@ -74,7 +74,7 @@
                                 <p><span><i class="feather-map-pin"></i></span>Visit - Al Mamzar Centre, Office no. 2, Abu Hail, Dubai, United Arab Emirates</p>
                             </div>
                             <p><span><i class="feather-phone"></i></span>+971 55 101 6476</p>
-                            <p class="mb-0"><span><i class="feather-mail"></i></span>connect@oracledigital.ae</p>
+                            <p class="mb-0"><span><i class="feather-mail"></i></span>info@digitalmarket.ae</p>
                         </div>
                     </div>
                     <!-- /Footer Widget -->
@@ -1703,5 +1703,7 @@
     </div>
     <!-- /Footer Bottom -->
 </footer>
+<script src="https://js.stripe.com/v3/"></script>
+
 @endif
 <!-- /Footer -->

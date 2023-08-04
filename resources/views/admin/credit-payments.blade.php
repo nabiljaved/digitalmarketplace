@@ -6,7 +6,7 @@
 
             @component('admin.components.pageheader')
                 @slot('title')
-              Check Payment Details
+              Cheque Payment Details
                 @endslot
             @endcomponent
 
