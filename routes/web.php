@@ -38,6 +38,14 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 ##process payment 
 Route::post('/process-payment', [PaymentController::class, 'processPayment']);
 
+//service grid 
+Route::get('/service-grid', function () {
+    $services = Service::all();
+    $categories = Category::all();
+
+    return view('service-grid', ['services' => $services, 'categories'=>$categories]);
+})->name('service-grid');
+
 
 ##### MAIN PAGE ####
 
@@ -171,9 +179,11 @@ Route::get('/blog-list', function () {
 Route::get('/blog-details', function () {
     return view('blog-details');
 })->name('blog-details');
-Route::get('/service-grid', function () {
-    return view('service-grid');
-})->name('service-grid');
+
+
+
+
+
 Route::get('/service-list', function () {
     return view('service-list');
 })->name('service-list');
